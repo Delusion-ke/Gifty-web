@@ -1,618 +1,670 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="sk" id="html-root">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gifty — Celebrate together.</title>
-  <meta name="description" content="Gifty ti pomáha organizovať darčeky pre tvojich blízkych. Wishlist, skupinové skladanie, QR platby." />
-  <meta property="og:title" content="Gifty — Celebrate together." />
-  <meta property="og:description" content="Zbierajte na darčeky spolu. Jednoducho, bez starostí." />
-  <meta property="og:image" content="https://gifty.cloud/og-image.png" />
-  <meta property="og:url" content="https://gifty.cloud" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="/favicon.ico" />
+  <meta name="description" content="Gifty ti pomáha organizovať darčeky pre tvojich blízkych."/>
+  <meta property="og:title" content="Gifty — Celebrate together."/>
+  <meta property="og:url" content="https://gifty.cloud"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --p1:#7B61FF;--p2:#9B85FF;--p3:#B388FF;--p4:#C4B5FD;
+      --ps:rgba(123,97,255,.10);--pb:rgba(123,97,255,.22);
+      --dk:#0B1020;--dk2:#10162A;--dk3:#181F35;--dk4:#1E2640;
+      --tx:#fff;--tx2:rgba(255,255,255,.58);--tx3:rgba(255,255,255,.32);
+      --br:rgba(255,255,255,.07);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dk);color:var(--tx);overflow-x:hidden}
 
-    :root {
-      --purple: #7B61FF;
-      --pink: #FF5EC7;
-      --lavender: #B388FF;
-      --dark: #0B1020;
-      --dark2: #131829;
-      --dark3: #1E2538;
-      --light: #F5F7FB;
-      --text: #ffffff;
-      --text-secondary: rgba(255,255,255,0.65);
-      --border: rgba(255,255,255,0.08);
+    /* HERO LOGO BANNER */
+    .hero-logo-banner{
+      display:flex;align-items:center;justify-content:center;
+      padding:100px 24px 0;
+      min-height:340px;
+      position:relative;
+    }
+    .hero-logo-img{
+      width:auto;
+      max-width:320px;
+      height:auto;
+      display:block;
+      /* PNG má čierné pozadie — odfiltrujeme ho */
+      mix-blend-mode:screen;
+      animation:fadeUp .6s ease both;
+      animation-delay:.05s;
     }
 
-    html { scroll-behavior: smooth; }
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 44px;height:64px;background:rgba(11,16,32,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--br)}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-right{display:flex;align-items:center;gap:16px}
+    .lang-select{background:transparent;border:1px solid var(--br);color:var(--tx2);font-family:inherit;font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;cursor:pointer;outline:none}
+    .lang-select:hover{border-color:var(--pb);color:var(--tx)}
+    .lang-select option{background:#1E2640;color:#fff}
+    .nav-cta{background:var(--p1);color:#fff;border:none;padding:9px 22px;border-radius:100px;font-size:13.5px;font-weight:700;cursor:pointer;text-decoration:none;font-family:inherit;transition:background .2s,transform .15s}
+    .nav-cta:hover{background:var(--p2);transform:translateY(-1px)}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--dark);
-      color: var(--text);
-      overflow-x: hidden;
+    /* HERO */
+    .hero{position:relative;min-height:60vh;display:grid;grid-template-columns:1fr 430px;align-items:center;gap:60px;max-width:1160px;margin:0 auto;padding:40px 44px 80px}
+    .blob{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+    .b1{width:600px;height:600px;background:rgba(123,97,255,.13);top:5%;left:-160px}
+    .b2{width:320px;height:320px;background:rgba(179,136,255,.07);bottom:10%;right:-40px}
+    .hero-l{position:relative;z-index:1}
+    .badge{display:inline-flex;align-items:center;gap:7px;background:var(--ps);border:1px solid var(--pb);border-radius:100px;padding:5px 14px 5px 8px;font-size:12px;font-weight:600;color:var(--p3);margin-bottom:26px}
+    .badge-d{width:22px;height:22px;background:var(--ps);border:1px solid var(--pb);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px}
+    h1{font-size:clamp(38px,5vw,64px);font-weight:800;line-height:1.07;letter-spacing:-2px;margin-bottom:20px}
+    .g{background:linear-gradient(135deg,var(--p1) 0%,var(--p3) 55%,var(--p4) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .punchline{font-size:15px;color:var(--p3);font-weight:600;line-height:1.6;margin-bottom:14px;max-width:460px;opacity:.9}
+    .hdesc{font-size:16.5px;color:var(--tx2);line-height:1.65;margin-bottom:34px;max-width:460px}
+    .hbtns{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:40px}
+    .btn-s{display:inline-flex;align-items:center;gap:10px;background:var(--dk3);border:1px solid var(--br);color:#fff;text-decoration:none;padding:12px 20px;border-radius:14px;font-size:13.5px;font-weight:600;font-family:inherit;transition:background .2s,border-color .2s,transform .15s}
+    .btn-s:hover{background:var(--dk4);border-color:var(--pb);transform:translateY(-2px)}
+    .btn-s .sl{display:flex;flex-direction:column;line-height:1.2}
+    .btn-s .sl span:first-child{font-size:9.5px;font-weight:500;opacity:.45}
+    .btn-s .sl span:last-child{font-size:13.5px;font-weight:700}
+    .hstats{display:flex;gap:30px}
+    .stat{display:flex;flex-direction:column}
+    .sv{font-size:19px;font-weight:800;letter-spacing:-.5px}
+    .sl2{font-size:11px;color:var(--tx3);font-weight:500;margin-top:1px}
+
+    /* PHONE */
+    .hero-r{position:relative;z-index:1;display:flex;justify-content:center}
+    .pw{position:relative;animation:float 5s ease-in-out infinite}
+    .pg{position:absolute;inset:-50px;background:radial-gradient(ellipse at center,rgba(123,97,255,.18) 0%,transparent 65%);pointer-events:none}
+    .phone{width:268px;background:#0A0F1E;border-radius:46px;border:1.5px solid rgba(255,255,255,.10);overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 50px 100px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06)}
+    .pnotch{width:86px;height:24px;background:#000;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10}
+    .pstat{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 2px;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.85);position:relative;z-index:5}
+    .pscreen{padding:2px 13px 16px}
+    .phdr{display:flex;align-items:center;justify-content:space-between;padding:10px 0 13px}
+    .phdr-l{display:flex;align-items:center;gap:8px}
+    .ptitle{font-size:20px;font-weight:800;letter-spacing:-.5px}
+    .pacts{display:flex;gap:7px}
+    .pib{width:30px;height:30px;background:rgba(255,255,255,.06);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px}
+    .pib-plus{background:linear-gradient(135deg,var(--p1),var(--p3));font-size:17px;font-weight:800;box-shadow:0 2px 10px rgba(123,97,255,.45)}
+    .upcoming{background:linear-gradient(135deg,rgba(123,97,255,.2),rgba(123,97,255,.05));border:1px solid rgba(123,97,255,.16);border-radius:14px;padding:11px 12px;display:flex;align-items:center;gap:9px;margin-bottom:13px}
+    .uav{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,var(--p1),var(--p3));display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+    .uname{font-size:12.5px;font-weight:700}
+    .usub{font-size:9.5px;color:rgba(255,255,255,.4);margin-top:1px}
+    .udate{font-size:9.5px;color:var(--p3);font-weight:600;margin-top:2px}
+    .ugift{margin-left:auto;font-size:28px;filter:drop-shadow(0 0 6px rgba(123,97,255,.6))}
+    .psec{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+    .psec-t{font-size:10.5px;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.5px}
+    .psec-a{font-size:10px;color:var(--p3);font-weight:600}
+    .wc{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:13px;padding:9px 11px;display:flex;align-items:center;gap:9px;margin-bottom:7px}
+    .wci{width:44px;height:44px;border-radius:10px;background:var(--dk4);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;overflow:hidden}
+    .wcn{font-size:12px;font-weight:700}
+    .wcp{font-size:11px;color:var(--p3);font-weight:700}
+    .wcc{font-size:9px;color:rgba(255,255,255,.28);margin-top:1px}
+    .wcr{margin-left:auto;text-align:right;flex-shrink:0}
+    .wcpct{font-size:11px;font-weight:800;margin-bottom:3px}
+    .wcbar{width:50px;height:3.5px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+    .wcfill{height:100%;background:linear-gradient(90deg,var(--p1),var(--p3));border-radius:2px}
+    .surp{display:flex;align-items:center;gap:9px;padding:6px 0 2px;opacity:.55}
+    .surp-icon{font-size:28px;filter:drop-shadow(0 0 8px rgba(123,97,255,.7))}
+    .surp-t{font-size:12px;font-weight:700}
+    .surp-s{font-size:9.5px;color:var(--tx3)}
+    .pnav{display:flex;align-items:center;justify-content:space-around;padding:9px 0 3px;border-top:1px solid rgba(255,255,255,.05);margin-top:4px}
+    .pni{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:8px;color:rgba(255,255,255,.28);font-weight:600}
+    .pni.on{color:var(--p3)}
+    .pfab{width:38px;height:38px;background:linear-gradient(135deg,var(--p1),var(--p3));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-top:-6px;box-shadow:0 3px 12px rgba(123,97,255,.55)}
+
+    /* FEATURES ICONS STRIP */
+    .icons-strip{background:var(--dk2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);padding:52px 44px}
+    .icons-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+    .icon-item{display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:120px}
+    .icon-svg{width:56px;height:56px;margin-bottom:14px;display:flex;align-items:center;justify-content:center}
+    .icon-svg svg{width:100%;height:100%}
+    .icon-title{font-size:14px;font-weight:700;margin-bottom:5px;color:var(--tx)}
+    .icon-desc{font-size:12.5px;color:var(--tx2);line-height:1.5}
+
+    /* SECTION */
+    .section{max-width:1160px;margin:0 auto;padding:96px 44px}
+    .eyebrow{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--p3);margin-bottom:13px}
+    .sec-t{font-size:clamp(27px,3.8vw,42px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:50px;max-width:580px}
+
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+    .feat{background:var(--dk2);border:1px solid var(--br);border-radius:20px;padding:24px;transition:border-color .2s,transform .2s}
+    .feat:hover{border-color:var(--pb);transform:translateY(-3px)}
+    .fi{width:44px;height:44px;background:var(--ps);border:1px solid var(--pb);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+    .ft{font-size:15px;font-weight:700;margin-bottom:6px;letter-spacing:-.2px}
+    .fd{font-size:13px;color:var(--tx2);line-height:1.6}
+
+    /* HOW */
+    .how{background:var(--dk2);border-top:1px solid var(--br);border-bottom:1px solid var(--br)}
+    .step{display:grid;grid-template-columns:48px 1fr;gap:17px;align-items:start;padding:24px 0;border-bottom:1px solid var(--br)}
+    .step:last-child{border-bottom:none}
+    .sn{width:40px;height:40px;background:var(--p1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff;flex-shrink:0}
+    .st{font-size:16px;font-weight:700;margin-bottom:5px;letter-spacing:-.2px}
+    .sd{font-size:13px;color:var(--tx2);line-height:1.6}
+
+    /* CTA */
+    .cta{text-align:center;padding:96px 44px;max-width:660px;margin:0 auto}
+    .cta h2{font-size:clamp(30px,5vw,50px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:13px}
+    .cta p{font-size:16px;color:var(--tx2);margin-bottom:34px}
+    .cta-btns{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--br);padding:26px 44px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    .fl{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--tx);text-decoration:none}
+    .ft3{font-size:12.5px;color:var(--tx3)}
+    .ft3 a{color:var(--p3);text-decoration:none}
+
+    /* ANIMATIONS */
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .hero-l>*{animation:fadeUp .55s ease both}
+    .hero-l>*:nth-child(1){animation-delay:.05s}
+    .hero-l>*:nth-child(2){animation-delay:.10s}
+    .hero-l>*:nth-child(3){animation-delay:.16s}
+    .hero-l>*:nth-child(4){animation-delay:.22s}
+    .hero-l>*:nth-child(5){animation-delay:.28s}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;text-align:center;gap:48px;padding:24px 24px 60px}
+      .hero-logo-img{max-width:220px}
+      .hero-logo-banner{padding:80px 24px 0;min-height:240px}
+      .hdesc{max-width:100%}
+      .punchline{max-width:100%}
+      .hbtns,.hstats{justify-content:center}
+      .hero-r{margin-top:32px}
+      nav{padding:0 20px}
+      .icons-strip{padding:40px 24px}
+      .icons-inner{gap:28px}
+      .icon-item{min-width:100px}
+      .section{padding:68px 24px}
+      .feat-grid{grid-template-columns:repeat(2,1fr)}
+      footer{flex-direction:column;align-items:center;text-align:center;padding:22px 24px}
     }
-
-    /* ── GRADIENT BG ── */
-    .hero-bg {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 100vh;
-      background: radial-gradient(ellipse at 20% 50%, rgba(123,97,255,0.15) 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 20%, rgba(255,94,199,0.12) 0%, transparent 50%),
-                  var(--dark);
-      pointer-events: none;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 32px;
-      background: rgba(11,16,32,0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 22px;
-      font-weight: 700;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .nav-logo svg {
-      width: 32px;
-      height: 32px;
-    }
-
-    .nav-cta {
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .nav-cta:hover { opacity: 0.85; }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(123,97,255,0.15);
-      border: 1px solid rgba(123,97,255,0.3);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 13px;
-      color: var(--lavender);
-      margin-bottom: 24px;
-    }
-
-    .hero-badge span { width: 6px; height: 6px; background: var(--purple); border-radius: 50%; display: inline-block; }
-
-    h1 {
-      font-size: clamp(40px, 8vw, 80px);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      letter-spacing: -1px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: clamp(16px, 2.5vw, 20px);
-      color: var(--text-secondary);
-      max-width: 520px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 60px;
-    }
-
-    .btn-primary {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      color: white;
-      text-decoration: none;
-      padding: 16px 32px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: transform 0.2s, opacity 0.2s;
-      box-shadow: 0 8px 32px rgba(123,97,255,0.35);
-    }
-
-    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
-
-    .btn-secondary {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
-      color: white;
-      text-decoration: none;
-      padding: 16px 32px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
-
-    /* ── MOCKUP ── */
-    .hero-mockup {
-      position: relative;
-      width: 280px;
-      height: 560px;
-      background: var(--dark2);
-      border-radius: 40px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
-    }
-
-    .mockup-screen {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      padding: 24px 16px;
-    }
-
-    .mockup-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .mockup-title { font-size: 20px; font-weight: 700; }
-
-    .mockup-wish {
-      background: var(--dark3);
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 10px;
-      border: 1px solid var(--border);
-    }
-
-    .mockup-wish-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .mockup-wish-img {
-      width: 52px; height: 52px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-    }
-
-    .mockup-wish-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-    .mockup-wish-price { font-size: 13px; color: var(--lavender); font-weight: 600; }
-    .mockup-progress-bar {
-      height: 4px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      margin-top: 10px;
-      overflow: hidden;
-    }
-    .mockup-progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--purple), var(--pink));
-      border-radius: 2px;
-    }
-
-    /* ── FEATURES ── */
-    .features {
-      padding: 100px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--lavender);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
-      margin-bottom: 60px;
-      line-height: 1.2;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .feature-card {
-      background: var(--dark2);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 28px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(123,97,255,0.4);
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      width: 52px; height: 52px;
-      background: linear-gradient(135deg, rgba(123,97,255,0.2), rgba(255,94,199,0.1));
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(123,97,255,0.2);
-    }
-
-    .feature-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .feature-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* ── HOW IT WORKS ── */
-    .how {
-      padding: 100px 24px;
-      background: var(--dark2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .how-inner {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-top: 60px;
-    }
-
-    .step {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .step:last-child { border-bottom: none; }
-
-    .step-num {
-      width: 44px; height: 44px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 800;
-      flex-shrink: 0;
-      color: white;
-    }
-
-    .step-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-    .step-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
-
-    /* ── CTA SECTION ── */
-    .cta-section {
-      padding: 100px 24px;
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .cta-section h2 {
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 800;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .cta-section p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      margin-bottom: 40px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    footer a { color: var(--lavender); text-decoration: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      nav { padding: 14px 20px; }
-      .hero-buttons { flex-direction: column; align-items: center; }
-      .btn-primary, .btn-secondary { width: 100%; max-width: 300px; justify-content: center; }
+    @media(max-width:520px){
+      .feat-grid{grid-template-columns:1fr}
+      .hbtns{flex-direction:column;align-items:center}
+      .btn-s{width:100%;max-width:280px;justify-content:center}
+      .phone{width:252px}
+      .icons-inner{justify-content:center}
+      .icon-item{min-width:42%}
     }
   </style>
 </head>
 <body>
 
-  <div class="hero-bg"></div>
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <!-- Reálne Gifty logo SVG — gift box + heart gradient + text -->
+    <svg width="100" height="34" viewBox="0 0 340 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#7B61FF"/>
+          <stop offset="50%" stop-color="#B388FF"/>
+          <stop offset="100%" stop-color="#D468E8"/>
+        </linearGradient>
+      </defs>
+      <!-- Gift box body -->
+      <rect x="6" y="40" width="68" height="48" rx="8" stroke="url(#lg)" stroke-width="5" fill="none"/>
+      <!-- Gift box lid -->
+      <rect x="2" y="26" width="76" height="18" rx="5" stroke="url(#lg)" stroke-width="5" fill="none"/>
+      <!-- Ribbon vertical -->
+      <line x1="40" y1="26" x2="40" y2="88" stroke="url(#lg)" stroke-width="5"/>
+      <!-- Bow left loop -->
+      <path d="M40 26 C28 18 14 20 16 30 C18 40 34 38 40 26Z" stroke="url(#lg)" stroke-width="4" fill="none"/>
+      <!-- Bow right loop -->
+      <path d="M40 26 C52 18 66 20 64 30 C62 40 46 38 40 26Z" stroke="url(#lg)" stroke-width="4" fill="none"/>
+      <!-- Heart inside -->
+      <path d="M32 60 C32 56 27 52 24 56 C21 60 24 64 32 70 C40 64 43 60 40 56 C37 52 32 56 32 60Z" fill="url(#lg)"/>
+      <!-- Text: Gifty -->
+      <text x="90" y="78" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="58" fill="white" letter-spacing="-2">Gifty</text>
+      <!-- Heart dot on i -->
+      <path d="M174 18 C174 15 170 12 168 15 C166 18 168 21 174 26 C180 21 182 18 180 15 C178 12 174 15 174 18Z" fill="url(#lg)"/>
+    </svg>
+  </a>
+  <div class="nav-right">
+    <select class="lang-select" id="lang-switcher" onchange="setLang(this.value)">
+      <option value="sk">🇸🇰 SK</option>
+      <option value="cs">🇨🇿 CZ</option>
+      <option value="en">🇬🇧 EN</option>
+      <option value="de">🇩🇪 DE</option>
+      <option value="pl">🇵🇱 PL</option>
+      <option value="hu">🇭🇺 HU</option>
+    </select>
+    <a href="#download" class="nav-cta" data-t="nav_cta">Stiahnuť zadarmo</a>
+  </div>
+</nav>
 
-  <!-- NAV -->
-  <nav>
-    <a href="/" class="nav-logo">
-      <!-- Gifty gift icon SVG -->
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="14" width="26" height="15" rx="3" stroke="url(#g1)" stroke-width="2"/>
-        <rect x="7" y="9" width="18" height="7" rx="2" stroke="url(#g1)" stroke-width="2"/>
-        <path d="M16 9 C16 9 13 4 10 6 C7 8 10 9 16 9 C22 9 25 8 22 6 C19 4 16 9 16 9Z" stroke="url(#g1)" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M12 20 C12 20 14 22 16 20 C18 18 16 16 14 17 C12 18 12 20 12 20Z" fill="url(#g1)"/>
-        <defs>
-          <linearGradient id="g1" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#7B61FF"/>
-            <stop offset="100%" stop-color="#FF5EC7"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      Gifty
+<!-- HERO LOGO BANNER -->
+<div class="hero-logo-banner">
+  <img src="/weblogo.png" alt="Gifty — Celebrate together." class="hero-logo-img"/>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
+  <div class="hero-l">
+    <div class="badge"><div class="badge-d">🇸🇰</div><span data-t="badge">Vyrobené na Slovensku</span></div>
+    <h1 data-t="h1a">Darčeky bez stresu<br/><span class="g" data-t="h1b">a zabudnutia</span></h1>
+    <p class="punchline" data-t="punchline">Žiadne premýšľanie čo kúpiť. Žiadne obálky s peniazmi. Žiadne dezerty ani kvety navyše. Prispejte presne na to, čo si oslavenec praje.</p>
+    <p class="hdesc" data-t="desc">Gifty ti pomáha organizovať wishlist, skladať sa na darčeky a nikdy nezabudnúť na narodeniny alebo meniny blízkych.</p>
+    <div class="hbtns" id="download">
+      <a href="#" class="btn-s">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div class="sl"><span data-t="store_avail">Dostupné na</span><span>App Store</span></div>
+      </a>
+      <a href="#" class="btn-s">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
+        <div class="sl"><span data-t="store_avail">Dostupné na</span><span>Google Play</span></div>
+      </a>
+    </div>
+    <div class="hstats">
+      <div class="stat"><span class="sv">100%</span><span class="sl2" data-t="stat_free">Zadarmo</span></div>
+      <div class="stat"><span class="sv">0€</span><span class="sl2" data-t="stat_fee">Poplatky</span></div>
+      <div class="stat"><span class="sv">SK/CZ</span><span class="sl2" data-t="stat_qr">Bankový QR</span></div>
+    </div>
+  </div>
+
+  <!-- PHONE MOCKUP — podľa reálnej appky -->
+  <div class="hero-r">
+    <div class="pw">
+      <div class="pg"></div>
+      <div class="phone">
+        <div class="pnotch"></div>
+        <div class="pstat">
+          <span>9:41</span>
+          <span style="display:flex;gap:5px;align-items:center;">
+            <svg width="13" height="9" viewBox="0 0 13 9" fill="white"><rect x="0" y="3.5" width="2" height="5.5" rx=".4" opacity=".4"/><rect x="3" y="2" width="2" height="7" rx=".4" opacity=".6"/><rect x="6" y=".5" width="2" height="8.5" rx=".4" opacity=".8"/><rect x="9" y="0" width="2" height="9" rx=".4"/></svg>
+            <svg width="14" height="10" viewBox="0 0 20 14" fill="white"><path d="M10 3C6.5 3 3.4 4.5 1.3 7L0 5.5C2.5 2.6 6 1 10 1s7.5 1.6 10 4.5L18.7 7C16.6 4.5 13.5 3 10 3zm0 4c-2.2 0-4.2.9-5.7 2.4L3 8C4.9 6.1 7.3 5 10 5s5.1 1.1 7 3l-1.3 1.4C14.2 7.9 12.2 7 10 7zm0 4c-1.1 0-2.1.4-2.8 1.1L6 10.7C7.1 9.6 8.5 9 10 9s2.9.6 4 1.7l-1.2 1.4C12.1 11.4 11.1 11 10 11z" opacity=".9"/></svg>
+            <svg width="18" height="10" viewBox="0 0 22 10" fill="none"><rect x=".5" y=".5" width="18" height="9" rx="2.5" stroke="white" stroke-opacity=".4"/><rect x="1.5" y="1.5" width="13" height="7" rx="1.5" fill="white"/><path d="M20 3.5v3a1.5 1.5 0 000-3z" fill="white" opacity=".4"/></svg>
+          </span>
+        </div>
+        <div class="pscreen">
+          <!-- Header -->
+          <div class="phdr">
+            <div class="phdr-l">
+              <!-- Mini logo in phone -->
+              <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
+                <defs><linearGradient id="pl" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+                <rect x="8" y="36" width="64" height="38" rx="8" stroke="url(#pl)" stroke-width="5" fill="none"/>
+                <rect x="4" y="22" width="72" height="17" rx="5" stroke="url(#pl)" stroke-width="5" fill="none"/>
+                <line x1="40" y1="22" x2="40" y2="74" stroke="url(#pl)" stroke-width="5"/>
+                <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" stroke="url(#pl)" stroke-width="4" fill="none"/>
+                <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" stroke="url(#pl)" stroke-width="4" fill="none"/>
+                <path d="M30 52 C30 48 24 44 21 48 C18 52 21 56 30 62 C39 56 42 52 39 48 C36 44 30 48 30 52Z" fill="url(#pl)"/>
+              </svg>
+              <span class="ptitle">Gifty</span>
+            </div>
+            <div class="pacts">
+              <div class="pib">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <div class="pib pib-plus">+</div>
+            </div>
+          </div>
+
+          <!-- Upcoming -->
+          <div class="upcoming">
+            <div class="uav">M</div>
+            <div>
+              <div class="uname">Marek</div>
+              <div class="usub">In 3 days</div>
+              <div class="udate">May 12</div>
+            </div>
+            <div class="ugift">
+              <!-- Purple gift icon like in real app -->
+              <svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+                <defs><linearGradient id="gi" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+                <rect x="8" y="36" width="64" height="38" rx="8" fill="url(#gi)" opacity=".9"/>
+                <rect x="4" y="22" width="72" height="17" rx="5" fill="url(#gi)" opacity=".7"/>
+                <line x1="40" y1="22" x2="40" y2="74" stroke="white" stroke-width="4" opacity=".5"/>
+                <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" fill="url(#gi)" opacity=".8"/>
+                <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" fill="url(#gi)" opacity=".8"/>
+                <path d="M30 52 C30 49 25 46 22 49 C19 52 22 55 30 60 C38 55 41 52 38 49 C35 46 30 49 30 52Z" fill="white" opacity=".9"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Wishlist -->
+          <div class="psec"><span class="psec-t">My Wishlist</span><span class="psec-a">View all</span></div>
+
+          <div class="wc">
+            <div class="wci" style="background:#1a1a2e;">
+              <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><rect x="20" y="30" width="60" height="50" rx="4" fill="#e0e0e0"/><rect x="10" y="20" width="80" height="15" rx="3" fill="#bbb"/><circle cx="50" cy="65" r="10" fill="#888"/></svg>
+            </div>
+            <div><div class="wcn">PlayStation 5</div><div class="wcp">€499</div><div class="wcc">Contributed by 7 people</div></div>
+            <div class="wcr"><div class="wcpct">45%</div><div class="wcbar"><div class="wcfill" style="width:45%"></div></div></div>
+          </div>
+
+          <div class="wc">
+            <div class="wci" style="background:#1a1a2e;">
+              <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="38" stroke="#aaa" stroke-width="6" fill="none"/><circle cx="50" cy="50" r="24" fill="#888"/><rect x="42" y="20" width="16" height="8" rx="2" fill="#aaa"/></svg>
+            </div>
+            <div><div class="wcn">Apple Watch Series 9</div><div class="wcp">€429</div><div class="wcc">Contributed by 4 people</div></div>
+            <div class="wcr"><div class="wcpct">62%</div><div class="wcbar"><div class="wcfill" style="width:62%"></div></div></div>
+          </div>
+
+          <!-- Surprise me -->
+          <div class="surp">
+            <div class="surp-icon">
+              <svg width="38" height="38" viewBox="0 0 80 80" fill="none">
+                <defs><linearGradient id="si" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+                <rect x="8" y="36" width="64" height="38" rx="8" fill="url(#si)"/>
+                <rect x="4" y="22" width="72" height="17" rx="5" fill="url(#si)" opacity=".8"/>
+                <line x1="40" y1="22" x2="40" y2="74" stroke="white" stroke-width="4" opacity=".6"/>
+                <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" fill="url(#si)"/>
+                <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" fill="url(#si)"/>
+                <path d="M30 52 C30 49 25 46 22 49 C19 52 22 55 30 60 C38 55 41 52 38 49 C35 46 30 49 30 52Z" fill="white" opacity=".9"/>
+              </svg>
+            </div>
+            <div><div class="surp-t">Surprise me</div><div class="surp-s">Let others choose the perfect gift</div></div>
+          </div>
+
+          <!-- Bottom nav -->
+          <div class="pnav">
+            <div class="pni">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M8 18h.01"/></svg>
+              Calendar
+            </div>
+            <div class="pni">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              People
+            </div>
+            <div class="pni on">
+              <div class="pfab">
+                <svg width="18" height="18" viewBox="0 0 80 80" fill="none"><rect x="8" y="36" width="64" height="38" rx="8" fill="white"/><rect x="4" y="22" width="72" height="17" rx="5" fill="white" opacity=".8"/><line x1="40" y1="22" x2="40" y2="74" stroke="url(#lg)" stroke-width="5"/><path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" fill="white"/><path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" fill="white"/></svg>
+              </div>
+              Gifts
+            </div>
+            <div class="pni">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><circle cx="19" cy="8" r="2"/><path d="M19 6v4M17 8h4"/></svg>
+              Groups
+            </div>
+            <div class="pni">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Profile
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ICONS STRIP — brand štýl -->
+<div class="icons-strip">
+  <div class="icons-inner">
+    <div class="icon-item">
+      <div class="icon-svg">
+        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="ic1" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+          <rect x="6" y="8" width="44" height="42" rx="6" stroke="url(#ic1)" stroke-width="3.5" fill="none"/>
+          <line x1="6" y1="20" x2="50" y2="20" stroke="url(#ic1)" stroke-width="3.5"/>
+          <line x1="18" y1="4" x2="18" y2="14" stroke="url(#ic1)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="38" y1="4" x2="38" y2="14" stroke="url(#ic1)" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M20 34 C20 31 16 28 14 31 C12 34 14 37 20 41 C26 37 28 34 26 31 C24 28 20 31 20 34Z" fill="url(#ic1)"/>
+        </svg>
+      </div>
+      <div class="icon-title" data-t="feat1_title">Birthdays &amp; Namedays</div>
+      <div class="icon-desc" data-t="feat1_desc">Never miss an important day</div>
+    </div>
+    <div class="icon-item">
+      <div class="icon-svg">
+        <svg viewBox="0 0 56 56" fill="none">
+          <defs><linearGradient id="ic2" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+          <rect x="6" y="26" width="44" height="26" rx="6" stroke="url(#ic2)" stroke-width="3.5" fill="none"/>
+          <rect x="3" y="16" width="50" height="14" rx="4" stroke="url(#ic2)" stroke-width="3.5" fill="none"/>
+          <line x1="28" y1="16" x2="28" y2="52" stroke="url(#ic2)" stroke-width="3.5"/>
+          <path d="M28 16 C20 10 10 12 12 20 C14 28 24 26 28 16Z" stroke="url(#ic2)" stroke-width="3" fill="none"/>
+          <path d="M28 16 C36 10 46 12 44 20 C42 28 32 26 28 16Z" stroke="url(#ic2)" stroke-width="3" fill="none"/>
+          <path d="M22 38 C22 35.5 18 33 16 36 C14 39 16 41.5 22 45 C28 41.5 30 39 28 36 C26 33 22 35.5 22 38Z" fill="url(#ic2)"/>
+        </svg>
+      </div>
+      <div class="icon-title" data-t="feat2_title">Wishlist</div>
+      <div class="icon-desc" data-t="feat2_desc">Add, reserve or contribute</div>
+    </div>
+    <div class="icon-item">
+      <div class="icon-svg">
+        <svg viewBox="0 0 56 56" fill="none">
+          <defs><linearGradient id="ic3" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+          <!-- QR code style icon -->
+          <rect x="6" y="6" width="18" height="18" rx="3" stroke="url(#ic3)" stroke-width="3.5" fill="none"/>
+          <rect x="10" y="10" width="10" height="10" rx="1.5" fill="url(#ic3)"/>
+          <rect x="32" y="6" width="18" height="18" rx="3" stroke="url(#ic3)" stroke-width="3.5" fill="none"/>
+          <rect x="36" y="10" width="10" height="10" rx="1.5" fill="url(#ic3)"/>
+          <rect x="6" y="32" width="18" height="18" rx="3" stroke="url(#ic3)" stroke-width="3.5" fill="none"/>
+          <rect x="10" y="36" width="10" height="10" rx="1.5" fill="url(#ic3)"/>
+          <line x1="32" y1="32" x2="38" y2="32" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="32" y1="38" x2="50" y2="38" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="44" y1="32" x2="50" y2="32" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="50" y1="32" x2="50" y2="44" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="38" y1="44" x2="50" y2="44" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="38" y1="38" x2="38" y2="50" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="32" y1="50" x2="44" y2="50" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="icon-title" data-t="feat3_title">QR Payments</div>
+      <div class="icon-desc" data-t="feat3_desc">Fast, simple and secure</div>
+    </div>
+    <div class="icon-item">
+      <div class="icon-svg">
+        <svg viewBox="0 0 56 56" fill="none">
+          <defs><linearGradient id="ic4" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+          <circle cx="20" cy="18" r="9" stroke="url(#ic4)" stroke-width="3.5" fill="none"/>
+          <path d="M4 48v-2a10 10 0 0 1 10-10h12a10 10 0 0 1 10 10v2" stroke="url(#ic4)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <circle cx="40" cy="16" r="7" stroke="url(#ic4)" stroke-width="3" fill="none"/>
+          <path d="M48 44v-1.5a8 8 0 0 0-6-7.74" stroke="url(#ic4)" stroke-width="3" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="icon-title" data-t="feat4_title">Groups</div>
+      <div class="icon-desc" data-t="feat4_desc">Family, friends, colleagues</div>
+    </div>
+    <div class="icon-item">
+      <div class="icon-svg">
+        <svg viewBox="0 0 56 56" fill="none">
+          <defs><linearGradient id="ic5" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+          <path d="M28 6 C16 6 8 14 8 24 C8 34 16 40 28 42 C40 40 48 34 48 24 C48 14 40 6 28 6Z" stroke="url(#ic5)" stroke-width="3.5" fill="none"/>
+          <path d="M20 6 C16 10 14 16 14 24" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M36 6 C40 10 42 16 42 24" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M10 18 L46 18" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M10 30 L46 30" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round"/>
+          <!-- Bell shape override with actual bell -->
+          <path d="M28 8 C22 8 16 13 16 20 L16 32 L12 36 L44 36 L40 32 L40 20 C40 13 34 8 28 8Z" stroke="url(#ic5)" stroke-width="3.5" fill="none"/>
+          <line x1="28" y1="4" x2="28" y2="10" stroke="url(#ic5)" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M24 36 C24 38.2 25.8 40 28 40 C30.2 40 32 38.2 32 36" stroke="url(#ic5)" stroke-width="3" fill="none"/>
+        </svg>
+      </div>
+      <div class="icon-title" data-t="feat5_title">Notifications</div>
+      <div class="icon-desc" data-t="feat5_desc">Reminders that matter</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section">
+    <p class="eyebrow" data-t="how_eyebrow">How it works</p>
+    <h2 class="sec-t" data-t="how_title">Gift pooling<br/><span class="g" data-t="how_title2">in 3 steps</span></h2>
+    <div>
+      <div class="step"><div class="sn">1</div><div><div class="st" data-t="step1_t">Add a wish to your wishlist</div><div class="sd" data-t="step1_d">Enter a name, amount and photo. Set who can see it — family, colleagues or everyone.</div></div></div>
+      <div class="step"><div class="sn">2</div><div><div class="st" data-t="step2_t">Share the link with friends</div><div class="sd" data-t="step2_d">The contributor gets a link, opens the wish, scans the QR code and sends money directly to your IBAN via their bank.</div></div></div>
+      <div class="step"><div class="sn">3</div><div><div class="st" data-t="step3_t">Confirm the contribution</div><div class="sd" data-t="step3_d">After receiving payment, confirm the contribution in the app. Progress updates and the contributor gets notified.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2 data-t="cta_h">Start collecting<br/><span class="g" data-t="cta_h2">for your dreams</span></h2>
+  <p data-t="cta_p">Free. No fees. No worries.</p>
+  <div class="cta-btns">
+    <a href="#" class="btn-s">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div class="sl"><span data-t="store_avail">Available on</span><span>App Store</span></div>
     </a>
-    <a href="#download" class="nav-cta">Stiahnuť zadarmo</a>
-  </nav>
+    <a href="#" class="btn-s">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
+      <div class="sl"><span data-t="store_avail">Available on</span><span>Google Play</span></div>
+    </a>
+  </div>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-badge">
-      <span></span>
-      Vyrobené s ❤️ na Slovensku
-    </div>
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="fl">
+    <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
+      <defs><linearGradient id="fgl" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
+      <rect x="8" y="36" width="64" height="38" rx="8" stroke="url(#fgl)" stroke-width="5" fill="none"/>
+      <rect x="4" y="22" width="72" height="17" rx="5" stroke="url(#fgl)" stroke-width="5" fill="none"/>
+      <line x1="40" y1="22" x2="40" y2="74" stroke="url(#fgl)" stroke-width="5"/>
+      <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" stroke="url(#fgl)" stroke-width="4" fill="none"/>
+      <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" stroke="url(#fgl)" stroke-width="4" fill="none"/>
+      <path d="M30 52 C30 49 25 46 22 49 C19 52 22 55 30 60 C38 55 41 52 38 49 C35 46 30 49 30 52Z" fill="url(#fgl)"/>
+    </svg>
+    Gifty
+  </a>
+  <div class="ft3">
+    <span data-t="footer_made">Vyrobené s</span> <span style="color:#7B61FF">♥</span> <span data-t="footer_sk">na Slovensku</span>
+    &nbsp;·&nbsp; © 2025 Gifty &nbsp;·&nbsp;
+    <a href="mailto:hello@gifty.cloud">hello@gifty.cloud</a>
+  </div>
+</footer>
 
-    <h1>
-      Darčeky bez<br/>
-      <span class="gradient-text">stresu a zabudnutia</span>
-    </h1>
+<!-- I18N -->
+<script>
+const T = {
+  sk:{
+    nav_cta:"Stiahnuť zadarmo",badge:"Vyrobené na Slovensku",
+    h1a:"Darčeky bez stresu",h1b:"a zabudnutia",
+    punchline:"Žiadne premýšľanie čo kúpiť. Žiadne obálky s peniazmi. Žiadne dezerty ani kvety navyše. Prispejte presne na to, čo si oslavenec praje.",
+    desc:"Gifty ti pomáha organizovať wishlist, skladať sa na darčeky a nikdy nezabudnúť na narodeniny alebo meniny blízkych.",
+    store_avail:"Dostupné na",stat_free:"Zadarmo",stat_fee:"Poplatky",stat_qr:"Bankový QR",
+    feat1_title:"Narodeniny a meniny",feat1_desc:"Nikdy nezabudni na dôležitý deň",
+    feat2_title:"Wishlist",feat2_desc:"Pridaj, rezervuj alebo prispej",
+    feat3_title:"QR platby",feat3_desc:"Rýchlo, jednoducho a bezpečne",
+    feat4_title:"Skupiny",feat4_desc:"Rodina, priatelia, kolegovia",
+    feat5_title:"Notifikácie",feat5_desc:"Pripomienky na čo záleží",
+    how_eyebrow:"Ako to funguje",how_title:"Skladanie sa na darček",how_title2:"v 3 krokoch",
+    step1_t:"Pridaj prianie na wishlist",step1_d:"Zadaj názov, sumu a obrázok. Nastav kto to vidí — rodina, kolegovia alebo všetci.",
+    step2_t:"Zdieľaj link priateľom",step2_d:"Prispievateľ dostane link, otvorí wish, naskenuje QR kód a pošle peniaze priamo na tvoj IBAN cez svoju banku.",
+    step3_t:"Potvrď príspevok",step3_d:"Po prijatí platby potvrdíš príspevok v appke. Progress sa aktualizuje a prispievateľ dostane notifikáciu.",
+    cta_h:"Začni zbierať",cta_h2:"na svoje sny",cta_p:"Zadarmo. Bez poplatkov. Bez starostí.",
+    footer_made:"Vyrobené s",footer_sk:"na Slovensku"
+  },
+  cs:{
+    nav_cta:"Stáhnout zdarma",badge:"Vyrobeno na Slovensku",
+    h1a:"Dárky bez stresu",h1b:"a zapomínání",
+    punchline:"Žádné přemýšlení co koupit. Žádné obálky s penězi. Žádné dezerty ani květiny navíc. Přispějte přesně na to, co si oslavenec přeje.",
+    desc:"Gifty ti pomáhá organizovat wishlist, skládat se na dárky a nikdy nezapomenout na narozeniny nebo svátky blízkých.",
+    store_avail:"Dostupné na",stat_free:"Zdarma",stat_fee:"Poplatky",stat_qr:"Bankovní QR",
+    feat1_title:"Narozeniny a svátky",feat1_desc:"Nikdy nezapomeň na důležitý den",
+    feat2_title:"Wishlist",feat2_desc:"Přidej, rezervuj nebo přispěj",
+    feat3_title:"QR platby",feat3_desc:"Rychle, jednoduše a bezpečně",
+    feat4_title:"Skupiny",feat4_desc:"Rodina, přátelé, kolegové",
+    feat5_title:"Notifikace",feat5_desc:"Připomínky na čem záleží",
+    how_eyebrow:"Jak to funguje",how_title:"Skládání na dárek",how_title2:"ve 3 krocích",
+    step1_t:"Přidej přání na wishlist",step1_d:"Zadej název, částku a obrázek. Nastav kdo to vidí — rodina, kolegové nebo všichni.",
+    step2_t:"Sdílej odkaz přátelům",step2_d:"Přispívatel dostane odkaz, otevře přání, naskenuje QR kód a pošle peníze přímo na tvůj IBAN přes svou banku.",
+    step3_t:"Potvrď příspěvek",step3_d:"Po přijetí platby potvrdíš příspěvek v aplikaci. Pokrok se aktualizuje a přispívatel dostane notifikaci.",
+    cta_h:"Začni sbírat",cta_h2:"na své sny",cta_p:"Zdarma. Bez poplatků. Bez starostí.",
+    footer_made:"Vyrobeno s",footer_sk:"na Slovensku"
+  },
+  en:{
+    nav_cta:"Download free",badge:"Made in Slovakia",
+    h1a:"Gifts without stress",h1b:"or forgetting",
+    punchline:"No more wondering what to buy. No cash envelopes. No extra desserts or flowers. Contribute exactly to what the birthday person actually wants.",
+    desc:"Gifty helps you organize your wishlist, pool money for gifts and never forget birthdays or namedays of your loved ones.",
+    store_avail:"Available on",stat_free:"Free",stat_fee:"No fees",stat_qr:"Bank QR",
+    feat1_title:"Birthdays & Namedays",feat1_desc:"Never miss an important day",
+    feat2_title:"Wishlist",feat2_desc:"Add, reserve or contribute",
+    feat3_title:"QR Payments",feat3_desc:"Fast, simple and secure",
+    feat4_title:"Groups",feat4_desc:"Family, friends, colleagues",
+    feat5_title:"Notifications",feat5_desc:"Reminders that matter",
+    how_eyebrow:"How it works",how_title:"Gift pooling",how_title2:"in 3 steps",
+    step1_t:"Add a wish to your wishlist",step1_d:"Enter a name, amount and photo. Set who can see it — family, colleagues or everyone.",
+    step2_t:"Share the link with friends",step2_d:"The contributor gets a link, opens the wish, scans the QR code and sends money directly to your IBAN via their bank.",
+    step3_t:"Confirm the contribution",step3_d:"After receiving payment, confirm the contribution in the app. Progress updates and the contributor gets notified.",
+    cta_h:"Start collecting",cta_h2:"for your dreams",cta_p:"Free. No fees. No worries.",
+    footer_made:"Made with",footer_sk:"in Slovakia"
+  },
+  de:{
+    nav_cta:"Kostenlos laden",badge:"Hergestellt in der Slowakei",
+    h1a:"Geschenke ohne Stress",h1b:"und Vergessen",
+    punchline:"Kein Nachdenken mehr was kaufen. Keine Geldumschläge. Kein extra Dessert oder Blumen. Tragt genau zu dem bei, was sich der Geburtstagskind wünscht.",
+    desc:"Gifty hilft dir, Wunschlisten zu organisieren, gemeinsam für Geschenke zu sparen und Geburtstage nie zu vergessen.",
+    store_avail:"Verfügbar auf",stat_free:"Kostenlos",stat_fee:"Keine Gebühren",stat_qr:"Bank QR",
+    feat1_title:"Geburtstage & Namenstage",feat1_desc:"Verpasse nie einen wichtigen Tag",
+    feat2_title:"Wunschliste",feat2_desc:"Hinzufügen, reservieren oder beitragen",
+    feat3_title:"QR-Zahlungen",feat3_desc:"Schnell, einfach und sicher",
+    feat4_title:"Gruppen",feat4_desc:"Familie, Freunde, Kollegen",
+    feat5_title:"Benachrichtigungen",feat5_desc:"Erinnerungen die zählen",
+    how_eyebrow:"So funktioniert es",how_title:"Gemeinsam schenken",how_title2:"in 3 Schritten",
+    step1_t:"Wunsch zur Liste hinzufügen",step1_d:"Name, Betrag und Foto eingeben. Lege fest wer es sehen kann — Familie, Kollegen oder alle.",
+    step2_t:"Link mit Freunden teilen",step2_d:"Der Beitragende erhält einen Link, öffnet den Wunsch, scannt den QR-Code und überweist direkt auf deine IBAN.",
+    step3_t:"Beitrag bestätigen",step3_d:"Nach Zahlungseingang bestätigst du den Beitrag in der App. Der Fortschritt wird aktualisiert.",
+    cta_h:"Fang an zu sammeln",cta_h2:"für deine Träume",cta_p:"Kostenlos. Keine Gebühren.",
+    footer_made:"Mit",footer_sk:"in der Slowakei gemacht"
+  },
+  pl:{
+    nav_cta:"Pobierz za darmo",badge:"Wyprodukowano na Słowacji",
+    h1a:"Prezenty bez stresu",h1b:"i zapominania",
+    punchline:"Koniec z zastanawianiem się co kupić. Żadnych kopert z gotówką. Żadnych dodatkowych deserów ani kwiatów. Wpłać dokładnie na to, czego sobie życzy jubilat.",
+    desc:"Gifty pomaga organizować listy życzeń, zbierać na prezenty i nigdy nie zapominać o urodzinach bliskich.",
+    store_avail:"Dostępne na",stat_free:"Za darmo",stat_fee:"Bez opłat",stat_qr:"QR bankowy",
+    feat1_title:"Urodziny i imieniny",feat1_desc:"Nigdy nie przegap ważnego dnia",
+    feat2_title:"Lista życzeń",feat2_desc:"Dodaj, zarezerwuj lub wpłać",
+    feat3_title:"Płatności QR",feat3_desc:"Szybko, prosto i bezpiecznie",
+    feat4_title:"Grupy",feat4_desc:"Rodzina, przyjaciele, współpracownicy",
+    feat5_title:"Powiadomienia",feat5_desc:"Przypomnienia które mają znaczenie",
+    how_eyebrow:"Jak to działa",how_title:"Zbieranie na prezent",how_title2:"w 3 krokach",
+    step1_t:"Dodaj życzenie do listy",step1_d:"Podaj nazwę, kwotę i zdjęcie. Ustaw kto może to widzieć — rodzina, współpracownicy lub wszyscy.",
+    step2_t:"Udostępnij link znajomym",step2_d:"Wpłacający otrzymuje link, otwiera życzenie, skanuje kod QR i wysyła pieniądze bezpośrednio na Twój IBAN.",
+    step3_t:"Potwierdź wpłatę",step3_d:"Po otrzymaniu płatności potwierdzasz wpłatę w aplikacji. Postęp jest aktualizowany.",
+    cta_h:"Zacznij zbierać",cta_h2:"na swoje marzenia",cta_p:"Za darmo. Bez opłat. Bez obaw.",
+    footer_made:"Wyprodukowano z",footer_sk:"na Słowacji"
+  },
+  hu:{
+    nav_cta:"Töltsd le ingyen",badge:"Szlovákiában készült",
+    h1a:"Ajándékok stressz",h1b:"és felejtés nélkül",
+    punchline:"Nincs több töprengés hogy mit vegyél. Nincs pénzes boríték. Nincs extra sütemény vagy virág. Pontosan arra járulj hozzá, amire az ünnepelt vágyik.",
+    desc:"A Gifty segít megszervezni kívánságlistádat, közösen gyűjteni ajándékra és soha nem elfelejteni szeretteid születésnapját.",
+    store_avail:"Elérhető",stat_free:"Ingyenes",stat_fee:"Díjmentes",stat_qr:"Banki QR",
+    feat1_title:"Születésnapok és névnapok",feat1_desc:"Soha ne maradj le fontos napról",
+    feat2_title:"Kívánságlista",feat2_desc:"Adj hozzá, foglalj le vagy járulj hozzá",
+    feat3_title:"QR fizetések",feat3_desc:"Gyors, egyszerű és biztonságos",
+    feat4_title:"Csoportok",feat4_desc:"Család, barátok, kollégák",
+    feat5_title:"Értesítések",feat5_desc:"Emlékeztetők amik számítanak",
+    how_eyebrow:"Hogyan működik",how_title:"Közös ajándékgyűjtés",how_title2:"3 lépésben",
+    step1_t:"Add hozzá a kívánságot",step1_d:"Add meg a nevet, összeget és képet. Állítsd be ki láthatja — család, kollégák vagy mindenki.",
+    step2_t:"Oszd meg a linket barátokkal",step2_d:"A befizetők megkapják a linket, megnyitják a kívánságot, beszkennelnek egy QR-kódot és közvetlenül az IBAN-odra utalnak.",
+    step3_t:"Erősítsd meg a befizetést",step3_d:"A fizetés beérkezése után megerősíted a hozzájárulást az alkalmazásban.",
+    cta_h:"Kezdj el gyűjteni",cta_h2:"álmaid megvalósítására",cta_p:"Ingyenes. Díjmentes. Gondtalan.",
+    footer_made:"Készült",footer_sk:"Szlovákiában"
+  }
+};
 
-    <p>
-      Gifty ti pomáha organizovať wishlist, skladať sa na darčeky
-      a nikdy nezabudnúť na narodeniny alebo meniny blízkych.
-    </p>
+function setLang(lang){
+  const t=T[lang]||T.en;
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const key=el.getAttribute('data-t');
+    if(t[key]) el.textContent=t[key];
+  });
+  document.getElementById('html-root').setAttribute('lang',lang);
+  localStorage.setItem('gifty_lang',lang);
+}
 
-    <div class="hero-buttons" id="download">
-      <a href="#" class="btn-primary">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        App Store
-      </a>
-      <a href="#" class="btn-secondary">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
-        Google Play
-      </a>
-    </div>
-
-    <!-- Phone mockup -->
-    <div class="hero-mockup">
-      <div class="mockup-screen">
-        <div class="mockup-header">
-          <div class="mockup-title">My Wishlist</div>
-          <div style="width:28px;height:28px;background:linear-gradient(135deg,#7B61FF,#FF5EC7);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;">+</div>
-        </div>
-
-        <div class="mockup-wish">
-          <div class="mockup-wish-row">
-            <div class="mockup-wish-img">🎮</div>
-            <div>
-              <div class="mockup-wish-name">PlayStation 5</div>
-              <div class="mockup-wish-price">€499</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">7 prispievateľov</div>
-            </div>
-          </div>
-          <div class="mockup-progress-bar">
-            <div class="mockup-progress-fill" style="width:45%"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:5px;">
-            <span style="font-size:11px;color:rgba(255,255,255,0.4)">€224 / €499</span>
-            <span style="font-size:11px;color:#B388FF;font-weight:600">45%</span>
-          </div>
-        </div>
-
-        <div class="mockup-wish">
-          <div class="mockup-wish-row">
-            <div class="mockup-wish-img">⌚</div>
-            <div>
-              <div class="mockup-wish-name">Apple Watch S9</div>
-              <div class="mockup-wish-price">€429</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">4 prispievatelia</div>
-            </div>
-          </div>
-          <div class="mockup-progress-bar">
-            <div class="mockup-progress-fill" style="width:62%"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:5px;">
-            <span style="font-size:11px;color:rgba(255,255,255,0.4)">€266 / €429</span>
-            <span style="font-size:11px;color:#B388FF;font-weight:600">62%</span>
-          </div>
-        </div>
-
-        <div class="mockup-wish">
-          <div class="mockup-wish-row">
-            <div class="mockup-wish-img">💻</div>
-            <div>
-              <div class="mockup-wish-name">MacBook Air M3</div>
-              <div class="mockup-wish-price">€1 299</div>
-              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">2 prispievatelia</div>
-            </div>
-          </div>
-          <div class="mockup-progress-bar">
-            <div class="mockup-progress-fill" style="width:18%"></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features">
-    <p class="section-label">Funkcie</p>
-    <h2 class="section-title">Všetko čo potrebuješ<br/><span class="gradient-text">na perfektný darček</span></h2>
-
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎁</div>
-        <div class="feature-title">Wishlist</div>
-        <div class="feature-desc">Pridaj čo chceš dostať. Tvoji blízki vidia čo si praješ a môžu prispieť na konkrétnu vec.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">👥</div>
-        <div class="feature-title">Skupiny</div>
-        <div class="feature-desc">Rodina, kolegovia, priatelia. Každá skupina vidí len to čo im ukážeš.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📱</div>
-        <div class="feature-title">QR platby</div>
-        <div class="feature-desc">Prispej cez bankový QR kód priamo na IBAN. Gifty nikdy nedotýka peňazí.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔔</div>
-        <div class="feature-title">Notifikácie</div>
-        <div class="feature-desc">Nezabudni na narodeniny, meniny ani výročia. Gifty ti pripomenie včas.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📅</div>
-        <div class="feature-title">Kalendár udalostí</div>
-        <div class="feature-desc">Prehľad všetkých blížiacich sa udalostí tvojich blízkych na jednom mieste.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎉</div>
-        <div class="feature-title">Surprise me</div>
-        <div class="feature-desc">Nechaj ostatných vybrať darček za teba. Ideálne keď nevieš čo chceš.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how">
-    <div class="how-inner">
-      <p class="section-label">Ako to funguje</p>
-      <h2 class="section-title">Skladanie sa na darček<br/><span class="gradient-text">v 3 krokoch</span></h2>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div>
-            <div class="step-title">Pridaj prianie na wishlist</div>
-            <div class="step-desc">Zadaj názov, sumu a obrázok. Nastav kto to vidí — rodina, kolegovia alebo všetci.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div>
-            <div class="step-title">Zdieľaj link priateľom</div>
-            <div class="step-desc">Prispievateľ dostane link, otvorí wish, naskenuje QR kód a pošle peniaze priamo na tvoj IBAN cez svoju banku.</div>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div>
-            <div class="step-title">Potvrď príspevok</div>
-            <div class="step-desc">Po prijatí platby potvrdíš príspevok v appke. Progress sa aktualizuje a prispievateľ dostane notifikáciu.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <h2>Začni zbierať<br/><span class="gradient-text">na svoje sny</span></h2>
-    <p>Zadarmo. Bez poplatkov. Bez starostí.</p>
-    <div class="hero-buttons">
-      <a href="#" class="btn-primary">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        App Store
-      </a>
-      <a href="#" class="btn-secondary">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
-        Google Play
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p style="margin-bottom:8px;">Vyrobené s ❤️ na Slovensku</p>
-    <p>© 2025 Gifty. Všetky práva vyhradené. · <a href="mailto:hello@gifty.cloud">hello@gifty.cloud</a></p>
-  </footer>
-
+// Auto-detect language on load
+(function(){
+  const saved=localStorage.getItem('gifty_lang');
+  const browser=navigator.language?.split('-')[0]||'en';
+  const lang=saved||(T[browser]?browser:'en');
+  document.getElementById('lang-switcher').value=lang;
+  setLang(lang);
+})();
+</script>
 </body>
 </html>
