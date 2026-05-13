@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gifty — Prianie</title>
+  <meta name="description" content="Pozri si toto prianie na Gifty a prispej na darček." />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --purple: #7B61FF;
+      --pink: #FF5EC7;
+      --lavender: #B388FF;
+      --dark: #0B1020;
+      --dark2: #131829;
+      --dark3: #1E2538;
+      --border: rgba(255,255,255,0.08);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px 28px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      color: white;
+      text-decoration: none;
+    }
+    .wish-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, rgba(123,97,255,0.3), rgba(255,94,199,0.2));
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 auto 20px;
+      border: 1px solid rgba(123,97,255,0.3);
+    }
+    .wish-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .wish-amount {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+    .progress-wrap {
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      height: 8px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--purple), var(--pink));
+      border-radius: 8px;
+      transition: width 0.5s ease;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 28px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+    .open-app-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+    }
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      text-decoration: none;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(123,97,255,0.3);
+    }
+    .btn-store {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: white;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .footer-note {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 20px;
+    }
+    .loading { display: block; }
+    .loaded { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <a href="https://gifty.cloud" class="logo">
+      🎁 Gifty
+    </a>
+
+    <!-- Wish info — dynamicky doplnené z URL params alebo Firestore -->
+    <div id="wish-content">
+      <div class="wish-icon">🎁</div>
+      <div class="wish-title" id="wish-title">Načítavam prianie...</div>
+      <div class="wish-amount" id="wish-amount"></div>
+      <div class="progress-wrap">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+      <div class="progress-label">
+        <span id="contributed-label">€0 vyzbierané</span>
+        <span id="progress-pct">0%</span>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <p class="open-app-label">Na prispenie potrebuješ Gifty appku</p>
+
+    <!-- Deep link — otvorí appku ak je nainštalovaná -->
+    <a href="#" id="open-app-btn" class="btn-primary">
+      🚀 Otvoriť v Gifty
+    </a>
+
+    <a href="https://apps.apple.com/app/gifty/id0000000000" class="btn-store">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Stiahnuť pre iOS
+    </a>
+
+    <a href="https://play.google.com/store/apps/details?id=com.gifty.app" class="btn-store">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
+      Stiahnuť pre Android
+    </a>
+
+    <p class="footer-note">Gifty — Celebrate together. 🎉</p>
+  </div>
+
+  <script>
+    // Získaj wish ID z URL: gifty.cloud/wish/ABC123
+    const pathParts = window.location.pathname.split('/');
+    const wishId = pathParts[pathParts.length - 1];
+
+    // Deep link — otvorí appku ak je nainštalovaná
+    const openAppBtn = document.getElementById('open-app-btn');
+    if (wishId) {
+      openAppBtn.href = `gifty://wish/${wishId}`;
+    }
+
+    // Pokus načítať wish data z Firestore REST API
+    // (public read — funguje pre wishes kde visibilityMode != 'private')
+    async function loadWishData() {
+      if (!wishId) return;
+      try {
+        const PROJECT_ID = 'gifty-f57bc';
+        const url = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/wishes/${wishId}`;
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+        const f = data.fields;
+        if (!f) return;
+
+        const title = f.title?.stringValue || 'Prianie';
+        const target = parseFloat(f.targetAmount?.integerValue || f.targetAmount?.doubleValue || 0);
+        const contributed = parseFloat(f.contributedAmount?.integerValue || f.contributedAmount?.doubleValue || 0);
+        const pct = target > 0 ? Math.round((contributed / target) * 100) : 0;
+
+        document.getElementById('wish-title').textContent = title;
+        document.getElementById('wish-amount').textContent = `€${target.toFixed(0)}`;
+        document.getElementById('progress-fill').style.width = `${Math.min(pct, 100)}%`;
+        document.getElementById('contributed-label').textContent = `€${contributed.toFixed(0)} vyzbierané`;
+        document.getElementById('progress-pct').textContent = `${pct}%`;
+
+        // OG meta update
+        document.title = `${title} — Gifty`;
+      } catch (e) {
+        console.log('Wish load error:', e);
+      }
+    }
+
+    loadWishData();
+  </script>
+</body>
+</html>

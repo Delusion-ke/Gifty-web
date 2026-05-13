@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gifty — Celebrate together.</title>
+  <meta name="description" content="Gifty ti pomáha organizovať darčeky pre tvojich blízkych. Wishlist, skupinové skladanie, QR platby." />
+  <meta property="og:title" content="Gifty — Celebrate together." />
+  <meta property="og:description" content="Zbierajte na darčeky spolu. Jednoducho, bez starostí." />
+  <meta property="og:image" content="https://gifty.cloud/og-image.png" />
+  <meta property="og:url" content="https://gifty.cloud" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --purple: #7B61FF;
+      --pink: #FF5EC7;
+      --lavender: #B388FF;
+      --dark: #0B1020;
+      --dark2: #131829;
+      --dark3: #1E2538;
+      --light: #F5F7FB;
+      --text: #ffffff;
+      --text-secondary: rgba(255,255,255,0.65);
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── GRADIENT BG ── */
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100vh;
+      background: radial-gradient(ellipse at 20% 50%, rgba(123,97,255,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(255,94,199,0.12) 0%, transparent 50%),
+                  var(--dark);
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(11,16,32,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(123,97,255,0.15);
+      border: 1px solid rgba(123,97,255,0.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--lavender);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge span { width: 6px; height: 6px; background: var(--purple); border-radius: 50%; display: inline-block; }
+
+    h1 {
+      font-size: clamp(40px, 8vw, 80px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s, opacity 0.2s;
+      box-shadow: 0 8px 32px rgba(123,97,255,0.35);
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: white;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── MOCKUP ── */
+    .hero-mockup {
+      position: relative;
+      width: 280px;
+      height: 560px;
+      background: var(--dark2);
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+
+    .mockup-screen {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+    }
+
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .mockup-title { font-size: 20px; font-weight: 700; }
+
+    .mockup-wish {
+      background: var(--dark3);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .mockup-wish-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mockup-wish-img {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .mockup-wish-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .mockup-wish-price { font-size: 13px; color: var(--lavender); font-weight: 600; }
+    .mockup-progress-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .mockup-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--purple), var(--pink));
+      border-radius: 2px;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--lavender);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      margin-bottom: 60px;
+      line-height: 1.2;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--dark2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(123,97,255,0.4);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, rgba(123,97,255,0.2), rgba(255,94,199,0.1));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(123,97,255,0.2);
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 100px 24px;
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .how-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 60px;
+    }
+
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: white;
+    }
+
+    .step-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .step-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 100px 24px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    footer a { color: var(--lavender); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; max-width: 300px; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-bg"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <!-- Gifty gift icon SVG -->
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="14" width="26" height="15" rx="3" stroke="url(#g1)" stroke-width="2"/>
+        <rect x="7" y="9" width="18" height="7" rx="2" stroke="url(#g1)" stroke-width="2"/>
+        <path d="M16 9 C16 9 13 4 10 6 C7 8 10 9 16 9 C22 9 25 8 22 6 C19 4 16 9 16 9Z" stroke="url(#g1)" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 20 C12 20 14 22 16 20 C18 18 16 16 14 17 C12 18 12 20 12 20Z" fill="url(#g1)"/>
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7B61FF"/>
+            <stop offset="100%" stop-color="#FF5EC7"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      Gifty
+    </a>
+    <a href="#download" class="nav-cta">Stiahnuť zadarmo</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span></span>
+      Vyrobené s ❤️ na Slovensku
+    </div>
+
+    <h1>
+      Darčeky bez<br/>
+      <span class="gradient-text">stresu a zabudnutia</span>
+    </h1>
+
+    <p>
+      Gifty ti pomáha organizovať wishlist, skladať sa na darčeky
+      a nikdy nezabudnúť na narodeniny alebo meniny blízkych.
+    </p>
+
+    <div class="hero-buttons" id="download">
+      <a href="#" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="#" class="btn-secondary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
+        Google Play
+      </a>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-screen">
+        <div class="mockup-header">
+          <div class="mockup-title">My Wishlist</div>
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#7B61FF,#FF5EC7);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;">+</div>
+        </div>
+
+        <div class="mockup-wish">
+          <div class="mockup-wish-row">
+            <div class="mockup-wish-img">🎮</div>
+            <div>
+              <div class="mockup-wish-name">PlayStation 5</div>
+              <div class="mockup-wish-price">€499</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">7 prispievateľov</div>
+            </div>
+          </div>
+          <div class="mockup-progress-bar">
+            <div class="mockup-progress-fill" style="width:45%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.4)">€224 / €499</span>
+            <span style="font-size:11px;color:#B388FF;font-weight:600">45%</span>
+          </div>
+        </div>
+
+        <div class="mockup-wish">
+          <div class="mockup-wish-row">
+            <div class="mockup-wish-img">⌚</div>
+            <div>
+              <div class="mockup-wish-name">Apple Watch S9</div>
+              <div class="mockup-wish-price">€429</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">4 prispievatelia</div>
+            </div>
+          </div>
+          <div class="mockup-progress-bar">
+            <div class="mockup-progress-fill" style="width:62%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:5px;">
+            <span style="font-size:11px;color:rgba(255,255,255,0.4)">€266 / €429</span>
+            <span style="font-size:11px;color:#B388FF;font-weight:600">62%</span>
+          </div>
+        </div>
+
+        <div class="mockup-wish">
+          <div class="mockup-wish-row">
+            <div class="mockup-wish-img">💻</div>
+            <div>
+              <div class="mockup-wish-name">MacBook Air M3</div>
+              <div class="mockup-wish-price">€1 299</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px;">2 prispievatelia</div>
+            </div>
+          </div>
+          <div class="mockup-progress-bar">
+            <div class="mockup-progress-fill" style="width:18%"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">Funkcie</p>
+    <h2 class="section-title">Všetko čo potrebuješ<br/><span class="gradient-text">na perfektný darček</span></h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-title">Wishlist</div>
+        <div class="feature-desc">Pridaj čo chceš dostať. Tvoji blízki vidia čo si praješ a môžu prispieť na konkrétnu vec.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <div class="feature-title">Skupiny</div>
+        <div class="feature-desc">Rodina, kolegovia, priatelia. Každá skupina vidí len to čo im ukážeš.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">QR platby</div>
+        <div class="feature-desc">Prispej cez bankový QR kód priamo na IBAN. Gifty nikdy nedotýka peňazí.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Notifikácie</div>
+        <div class="feature-desc">Nezabudni na narodeniny, meniny ani výročia. Gifty ti pripomenie včas.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Kalendár udalostí</div>
+        <div class="feature-desc">Prehľad všetkých blížiacich sa udalostí tvojich blízkych na jednom mieste.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎉</div>
+        <div class="feature-title">Surprise me</div>
+        <div class="feature-desc">Nechaj ostatných vybrať darček za teba. Ideálne keď nevieš čo chceš.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="how-inner">
+      <p class="section-label">Ako to funguje</p>
+      <h2 class="section-title">Skladanie sa na darček<br/><span class="gradient-text">v 3 krokoch</span></h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Pridaj prianie na wishlist</div>
+            <div class="step-desc">Zadaj názov, sumu a obrázok. Nastav kto to vidí — rodina, kolegovia alebo všetci.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Zdieľaj link priateľom</div>
+            <div class="step-desc">Prispievateľ dostane link, otvorí wish, naskenuje QR kód a pošle peniaze priamo na tvoj IBAN cez svoju banku.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Potvrď príspevok</div>
+            <div class="step-desc">Po prijatí platby potvrdíš príspevok v appke. Progress sa aktualizuje a prispievateľ dostane notifikáciu.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Začni zbierať<br/><span class="gradient-text">na svoje sny</span></h2>
+    <p>Zadarmo. Bez poplatkov. Bez starostí.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="#" class="btn-secondary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
+        Google Play
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p style="margin-bottom:8px;">Vyrobené s ❤️ na Slovensku</p>
+    <p>© 2025 Gifty. Všetky práva vyhradené. · <a href="mailto:hello@gifty.cloud">hello@gifty.cloud</a></p>
+  </footer>
+
+</body>
+</html>
