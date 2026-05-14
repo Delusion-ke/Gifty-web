@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gifty — Pozvánka</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--p1:#7B61FF;--p3:#B388FF;--dk:#0B1020;--br:rgba(255,255,255,.07)}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dk);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+    .card{background:#10162A;border:1px solid var(--br);border-radius:24px;max-width:400px;width:100%;overflow:hidden}
+    .hero{height:80px;background:linear-gradient(135deg,#7B61FF,#B388FF);display:flex;align-items:center;justify-content:center;font-size:40px}
+    .body{padding:24px;text-align:center}
+    .invite-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(123,97,255,.15);border:1px solid rgba(123,97,255,.25);border-radius:100px;padding:5px 14px;font-size:13px;font-weight:600;color:#B388FF;margin-bottom:16px}
+    .title{font-size:22px;font-weight:800;margin-bottom:8px}
+    .inviter{font-size:17px;font-weight:700;color:#B388FF}
+    .desc{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6;margin:16px 0 24px}
+    .features{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;text-align:left}
+    .feat{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border-radius:12px;padding:12px}
+    .feat-icon{font-size:20px;width:36px;text-align:center}
+    .feat-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.4}
+    .feat-text strong{color:#fff;display:block;font-size:14px;margin-bottom:1px}
+    .btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#7B61FF,#B388FF);color:#fff;text-decoration:none;padding:14px 24px;border-radius:14px;font-size:15px;font-weight:700;margin-bottom:10px;box-shadow:0 6px 20px rgba(123,97,255,.35);transition:opacity .2s}
+    .btn:hover{opacity:.85}
+    .btn-sec{display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid var(--br);color:#fff;text-decoration:none;padding:13px 24px;border-radius:14px;font-size:14px;font-weight:600;margin-bottom:8px}
+    .footer{margin-top:24px;font-size:12px;color:rgba(255,255,255,.3);text-align:center}
+    .footer a{color:#B388FF;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="hero">🎁</div>
+    <div class="body">
+      <div class="invite-badge">✉️ Pozvánka</div>
+      <div class="title"><span id="inviter-name">Niekto</span> ťa pozýva</div>
+      <p class="desc">Pridaj sa na Gifty — appku na wishlisty a skupinové skladanie sa na darčeky. Bez stresu, bez obálok s peniazmi.</p>
+
+      <div class="features">
+        <div class="feat">
+          <div class="feat-icon">🎁</div>
+          <div class="feat-text"><strong>Wishlist</strong>Pridaj čo chceš dostať</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📱</div>
+          <div class="feat-text"><strong>QR platby</strong>Prispej priamo na IBAN</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">👥</div>
+          <div class="feat-text"><strong>Skupiny</strong>Rodina, priatelia, kolegovia</div>
+        </div>
+      </div>
+
+      <a href="#" id="open-app" class="btn">🚀 Otvoriť v Gifty</a>
+      <a href="https://apps.apple.com/app/gifty/id0000000000" class="btn-sec">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.gifty.cloud" class="btn-sec">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.76c.3.17.64.24.99.19l12.6-7.27-2.79-2.79-10.8 9.87zM20.7 10.06L17.62 8.3l-3.12 3.12 3.12 3.12 3.11-1.77c.89-.5.89-1.71-.03-2.21zM2.05.46C1.73.98 1.55 1.62 1.55 2.36v19.32c0 .74.18 1.38.5 1.9l.1.09 10.82-10.82v-.25L2.05.46zM3.18.27l12.6 7.27-2.79 2.79L2.19.46c.32-.22.68-.28.99-.19z"/></svg>
+        Google Play
+      </a>
+    </div>
+  </div>
+  <div class="footer"><a href="https://gifty.cloud">gifty.cloud</a> · Celebrate together. 🎁</div>
+
+  <script>
+    const pathParts = window.location.pathname.split('/');
+    const uid = pathParts[pathParts.length - 1];
+
+    const openAppBtn = document.getElementById('open-app');
+    if (uid) openAppBtn.href = `gifty://invite/${uid}`;
+
+    async function loadInviter() {
+      if (!uid) return;
+      try {
+        const PROJECT_ID = 'gifty-f57bc';
+        const res = await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/profiles/${uid}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        const f = data.fields;
+        if (!f) return;
+        const name = f?.name?.stringValue || 'Gifty používateľ';
+        document.getElementById('inviter-name').textContent = name;
+        document.title = `${name} ťa pozýva — Gifty`;
+      } catch (e) {
+        console.log('Inviter load error:', e);
+      }
+    }
+    loadInviter();
+  </script>
+</body>
+</html>
