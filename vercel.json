@@ -3,6 +3,10 @@
     {
       "source": "/wish/:id",
       "destination": "/wish/index.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy/index.html"
     }
   ],
   "headers": [
