@@ -1,9 +1,10 @@
 {
   "rewrites": [
-    { "source": "/wish/:id",     "destination": "/wish/index.html" },
-    { "source": "/privacy",      "destination": "/privacy/index.html" },
-    { "source": "/u/:giftyId",   "destination": "/u/index.html" },
-    { "source": "/invite/:uid",  "destination": "/invite/index.html" }
+    { "source": "/wish/:id",        "destination": "/wish/index.html" },
+    { "source": "/privacy",         "destination": "/privacy/index.html" },
+    { "source": "/u/:giftyId",      "destination": "/u/index.html" },
+    { "source": "/invite/:uid",     "destination": "/invite/index.html" },
+    { "source": "/delete-account",  "destination": "/delete-account/index.html" }
   ],
   "headers": [
     {
