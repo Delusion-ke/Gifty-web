@@ -37,7 +37,7 @@
     }
     .card {
       background: var(--surface); border: 1px solid var(--border); border-radius: 28px;
-      max-width: 420px; width: 100%; overflow: hidden; position: relative; z-index: 1;
+      max-width: 420px; width: 100%; position: relative; z-index: 1;
       box-shadow: 0 32px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04) inset;
       animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
     }
@@ -45,7 +45,8 @@
     .hero {
       position: relative; height: 220px;
       background: linear-gradient(145deg, #1A1040 0%, #0D0A2E 100%);
-      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 28px 28px 0 0; overflow: hidden;
     }
     .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(123,92,245,.35) 0%, transparent 65%); }
     .hero-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(123,92,245,.15); }
@@ -116,7 +117,7 @@
       <div class="hero-ring"></div>
       <div class="hero-ring"></div>
       <div class="hero-logo">
-        <img src="../weblogo.png" alt="Gifty" style="width:160px; mix-blend-mode:screen; filter:drop-shadow(0 8px 28px rgba(123,92,245,.5));"/>
+        <img src="../weblogo.png" alt="Gifty" style="width:160px; mix-blend-mode:screen; filter:drop-shadow(0 8px 28px rgba(123,92,245,.5)); display:block; position:relative; z-index:3;"/>
       </div>
     </div>
     <div class="body">
