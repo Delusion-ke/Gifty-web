@@ -20,7 +20,7 @@
       --br:rgba(255,255,255,.07);
     }
     html{scroll-behavior:smooth}
-    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dk);color:var(--tx);overflow-x:hidden}
+    html{overflow-x:hidden;max-width:100%}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dk);color:var(--tx);overflow-x:hidden;max-width:100%}
 
     /* HERO LOGO BANNER */
     .hero-logo-banner{
@@ -51,7 +51,7 @@
     .nav-cta:hover{background:var(--p2);transform:translateY(-1px)}
 
     /* HERO */
-    .hero{position:relative;min-height:60vh;display:grid;grid-template-columns:1fr 430px;align-items:center;gap:60px;max-width:1160px;margin:0 auto;padding:40px 44px 80px}
+    .hero{position:relative;min-height:60vh;display:grid;grid-template-columns:1fr 430px;align-items:center;gap:60px;max-width:1160px;width:100%;margin:0 auto;padding:40px 44px 80px}
     .blob{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
     .b1{width:600px;height:600px;background:rgba(123,97,255,.13);top:5%;left:-160px}
     .b2{width:320px;height:320px;background:rgba(179,136,255,.07);bottom:10%;right:-40px}
@@ -186,9 +186,15 @@
       .feat-grid{grid-template-columns:1fr}
       .hbtns{flex-direction:column;align-items:center}
       .btn-s{width:100%;max-width:280px;justify-content:center}
-      .phone{width:252px}
+      .phone{width:220px}
       .icons-inner{justify-content:center}
       .icon-item{min-width:42%}
+    }
+    @media(max-width:380px){
+      .phone{width:190px}
+      .hero{padding:20px 16px 50px}
+      nav{padding:0 16px}
+      .section{padding:50px 16px}
     }
   </style>
 </head>
