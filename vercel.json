@@ -5,6 +5,8 @@
     { "source": "/u/:giftyId",      "destination": "/u/index.html" },
     { "source": "/invite/:uid",     "destination": "/invite/index.html" },
     { "source": "/delete-account",  "destination": "/delete-account/index.html" }
+	{ "source": "/admin", "destination": "/admin/index.html" }
+
   ],
   "headers": [
     {
