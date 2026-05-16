@@ -150,7 +150,7 @@
     .cta-btns{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
 
     /* FOOTER */
-    footer{border-top:1px solid var(--br);padding:26px 44px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    footer{border-top:1px solid var(--br);padding:26px 44px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
     .fl{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--tx);text-decoration:none}
     .ft3{font-size:12.5px;color:var(--tx3)}
     .ft3 a{color:var(--p3);text-decoration:none}
@@ -490,24 +490,12 @@
 
 <!-- FOOTER -->
 <footer>
-  <a href="/" class="fl">
-    <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
-      <defs><linearGradient id="fgl" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-      <rect x="8" y="36" width="64" height="38" rx="8" stroke="url(#fgl)" stroke-width="5" fill="none"/>
-      <rect x="4" y="22" width="72" height="17" rx="5" stroke="url(#fgl)" stroke-width="5" fill="none"/>
-      <line x1="40" y1="22" x2="40" y2="74" stroke="url(#fgl)" stroke-width="5"/>
-      <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" stroke="url(#fgl)" stroke-width="4" fill="none"/>
-      <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" stroke="url(#fgl)" stroke-width="4" fill="none"/>
-      <path d="M30 52 C30 49 25 46 22 49 C19 52 22 55 30 60 C38 55 41 52 38 49 C35 46 30 49 30 52Z" fill="url(#fgl)"/>
-    </svg>
-    Gifty
-  </a>
   <div class="ft3">
     <span data-t="footer_made">Vyrobené s</span> <span style="color:#7B61FF">♥</span> <span data-t="footer_sk">na Slovensku</span>
     &nbsp;·&nbsp; © 2026 GC REAL ESTATE s. r. o. &nbsp;·&nbsp;
     <a href="mailto:hello@gifty.cloud">hello@gifty.cloud</a>
   </div>
-  <div style="margin-top:12px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
+  <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
     <a href="/privacy" style="font-size:13px;color:rgba(255,255,255,.35);text-decoration:none" onmouseover="this.style.color='#B388FF'" onmouseout="this.style.color='rgba(255,255,255,.35)'" data-t="footer_privacy">Ochrana osobných údajov</a>
     <a href="/terms" style="font-size:13px;color:rgba(255,255,255,.35);text-decoration:none" onmouseover="this.style.color='#B388FF'" onmouseout="this.style.color='rgba(255,255,255,.35)'" data-t="footer_terms">Obchodné podmienky</a>
     <a href="/cookies" style="font-size:13px;color:rgba(255,255,255,.35);text-decoration:none" onmouseover="this.style.color='#B388FF'" onmouseout="this.style.color='rgba(255,255,255,.35)'" data-t="footer_cookies">Cookies</a>
