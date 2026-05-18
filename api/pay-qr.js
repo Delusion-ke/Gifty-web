@@ -1,5 +1,4 @@
 const QRCode = require('qrcode');
-const { encode } = require('bysquare/pay');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://gifty.cloud');
@@ -17,27 +16,23 @@ module.exports = async function handler(req, res) {
   try {
     const { iban, amount, vs, message, recipientName } = req.body;
 
-    if (!iban) {
-      return res.status(400).json({ error: 'Missing IBAN' });
-    }
+    if (!iban) return res.status(400).json({ error: 'Missing IBAN' });
 
     const parsedAmount = parseFloat(amount);
-    if (!parsedAmount || parsedAmount <= 0) {
-      return res.status(400).json({ error: 'Invalid amount' });
-    }
+    if (!parsedAmount || parsedAmount <= 0) return res.status(400).json({ error: 'Invalid amount' });
+
+    const { encode } = await import('bysquare/pay');
 
     const payload = encode({
       payments: [
         {
-          type: 1, // PaymentOrder
+          type: 1,
           amount: parsedAmount,
           currencyCode: 'EUR',
           bankAccounts: [{ iban: iban.replace(/\s/g, '') }],
           variableSymbol: vs || undefined,
           paymentNote: message || 'Gifty contribution',
-          beneficiary: {
-            name: recipientName || 'Gifty User',
-          },
+          beneficiary: { name: recipientName || 'Gifty User' },
         },
       ],
     });
