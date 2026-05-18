@@ -1,9 +1,10 @@
 const QRCode = require('qrcode');
 
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://gifty.cloud');
+  // ✅ OPRAVA: mobilné appky neposielajú Origin header — povolíme všetky origins
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -11,10 +12,15 @@ module.exports = async function handler(req, res) {
   try {
     const { iban, amount, vs, message, recipientName } = req.body;
 
+    console.log('PAY QR REQUEST:', { iban: iban ? iban.substring(0, 8) + '...' : null, amount, vs, message });
+
     if (!iban) return res.status(400).json({ error: 'Missing IBAN' });
 
     const parsedAmount = parseFloat(amount);
     if (!parsedAmount || parsedAmount <= 0) return res.status(400).json({ error: 'Invalid amount' });
+
+    // Normalize IBAN — odstráň medzery
+    const cleanIban = iban.replace(/\s/g, '').toUpperCase();
 
     // bysquare v4 — ESM only, use dynamic import
     const bysquare = await import('bysquare');
@@ -26,7 +32,7 @@ module.exports = async function handler(req, res) {
           type: PaymentOptions.PaymentOrder,
           amount: parsedAmount,
           currencyCode: CurrencyCode.EUR,
-          bankAccounts: [{ iban: iban.replace(/\s/g, '') }],
+          bankAccounts: [{ iban: cleanIban }],
           variableSymbol: vs || undefined,
           paymentNote: message || 'Gifty contribution',
           beneficiary: { name: recipientName || 'Gifty User' },
@@ -40,7 +46,9 @@ module.exports = async function handler(req, res) {
       width: 512,
     });
 
+    console.log('PAY QR SUCCESS for IBAN:', cleanIban.substring(0, 8) + '...');
     return res.status(200).json({ success: true, image });
+
   } catch (err) {
     console.error('PAY QR ERROR:', err);
     return res.status(500).json({ error: err.message || 'QR generation failed' });
