@@ -5,13 +5,8 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
     const { iban, amount, vs, message, recipientName } = req.body;
@@ -21,14 +16,16 @@ module.exports = async function handler(req, res) {
     const parsedAmount = parseFloat(amount);
     if (!parsedAmount || parsedAmount <= 0) return res.status(400).json({ error: 'Invalid amount' });
 
-    const { encode } = await import('bysquare/pay');
+    // bysquare v4 — ESM only, use dynamic import
+    const bysquare = await import('bysquare');
+    const { encode, PaymentOptions, CurrencyCode } = bysquare;
 
     const payload = encode({
       payments: [
         {
-          type: 1,
+          type: PaymentOptions.PaymentOrder,
           amount: parsedAmount,
-          currencyCode: 'EUR',
+          currencyCode: CurrencyCode.EUR,
           bankAccounts: [{ iban: iban.replace(/\s/g, '') }],
           variableSymbol: vs || undefined,
           paymentNote: message || 'Gifty contribution',

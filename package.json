@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "firebase-admin": "^13.10.0",
     "bysquare": "^4.0.0",
     "qrcode": "^1.5.4"
   }
