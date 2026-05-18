@@ -1,5 +1,5 @@
 const QRCode = require('qrcode');
-const { generate } = require('bysquare');
+const { encode } = require('bysquare/pay');
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://gifty.cloud');
@@ -11,38 +11,33 @@ module.exports = async function handler(req, res) {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({
-      error: 'Method not allowed',
-    });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
     const { iban, amount, vs, message, recipientName } = req.body;
 
     if (!iban) {
-      return res.status(400).json({
-        error: 'Missing IBAN',
-      });
+      return res.status(400).json({ error: 'Missing IBAN' });
     }
 
     const parsedAmount = parseFloat(amount);
-
     if (!parsedAmount || parsedAmount <= 0) {
-      return res.status(400).json({
-        error: 'Invalid amount',
-      });
+      return res.status(400).json({ error: 'Invalid amount' });
     }
 
-    const payload = generate({
+    const payload = encode({
       payments: [
         {
-          type: 'PaymentOrder',
+          type: 1, // PaymentOrder
           amount: parsedAmount,
           currencyCode: 'EUR',
-          iban: iban.replace(/\s/g, ''),
+          bankAccounts: [{ iban: iban.replace(/\s/g, '') }],
           variableSymbol: vs || undefined,
           paymentNote: message || 'Gifty contribution',
-          beneficiaryName: recipientName || 'Gifty User',
+          beneficiary: {
+            name: recipientName || 'Gifty User',
+          },
         },
       ],
     });
@@ -53,15 +48,9 @@ module.exports = async function handler(req, res) {
       width: 512,
     });
 
-    return res.status(200).json({
-      success: true,
-      image,
-    });
+    return res.status(200).json({ success: true, image });
   } catch (err) {
     console.error('PAY QR ERROR:', err);
-
-    return res.status(500).json({
-      error: err.message || 'QR generation failed',
-    });
+    return res.status(500).json({ error: err.message || 'QR generation failed' });
   }
 };
