@@ -9,6 +9,7 @@ export default function TombolaPage({ tombola, code }) {
   const [participants, setParticipants] = useState(tombola?.participantCount || 0);
   const [results, setResults] = useState(tombola?.results || null);
   const [myResult, setMyResult] = useState(null);
+  const [myTicket, setMyTicket] = useState(null); // { vs, qrImage }
 
   const isDrawn = tombola?.status === 'drawn';
   const isClosed = tombola?.status === 'closed';
@@ -27,10 +28,10 @@ export default function TombolaPage({ tombola, code }) {
       if (!res.ok) { setError(data.error || 'Chyba'); return; }
       setJoined(true);
       setParticipants(data.participantCount);
-      // Check if already drawn
+      if (data.ticket) setMyTicket(data.ticket);
       if (data.results) {
         setResults(data.results);
-        const mine = data.results.find(r => r.name === name.trim());
+        const mine = data.results.find(r => r.winnerName === name.trim());
         setMyResult(mine || null);
       }
     } catch (e) {
@@ -161,11 +162,55 @@ export default function TombolaPage({ tombola, code }) {
               </div>
             )}
 
-            {joined && !isDrawn && (
+            {joined && !isDrawn && !myTicket && (
               <div style={{ textAlign: 'center', padding: '16px 0' }}>
                 <div style={{ fontSize: 40, marginBottom: 8 }}>✅</div>
                 <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Si zapojený(á)!</div>
                 <div style={{ fontSize: 13, color: 'var(--muted)' }}>Čakaj na žrebovanie. Výsledky sa zobrazia priamo tu.</div>
+              </div>
+            )}
+
+            {/* Platený lístok — QR + VS */}
+            {joined && myTicket && !isDrawn && (
+              <div style={{ marginTop: 16 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--muted)', letterSpacing: 1, marginBottom: 12 }}>
+                  ZAPLAŤ ZA LÍSTOK
+                </div>
+                <div style={{ padding: 16, background: 'var(--surface2)', borderRadius: 16, border: '1px solid var(--border)', marginBottom: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, color: 'var(--muted)' }}>Suma</span>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--violet-light)' }}>€{myTicket.price?.toFixed(2)}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, color: 'var(--muted)' }}>Variabilný symbol</span>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)', cursor: 'pointer' }}
+                      onClick={() => navigator.clipboard?.writeText(myTicket.vs)}>
+                      {myTicket.vs} 📋
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 13, color: 'var(--muted)' }}>IBAN</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)', cursor: 'pointer' }}
+                      onClick={() => navigator.clipboard?.writeText(myTicket.iban)}>
+                      {myTicket.iban?.slice(0, 8)}... 📋
+                    </span>
+                  </div>
+                </div>
+
+                {myTicket.qrImage && (
+                  <div style={{ textAlign: 'center', marginBottom: 12 }}>
+                    <div style={{ display: 'inline-block', padding: 12, background: '#fff', borderRadius: 12 }}>
+                      <img src={myTicket.qrImage} alt="QR platba" style={{ width: 200, height: 200 }} />
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 8 }}>
+                      Naskenuj v bankovej appke a zaplať
+                    </div>
+                  </div>
+                )}
+
+                <div style={{ padding: 12, background: 'rgba(245,158,11,0.1)', borderRadius: 12, border: '1px solid rgba(245,158,11,0.3)', fontSize: 13, color: '#F59E0B', textAlign: 'center' }}>
+                  ⏳ Po zaplatení organizátor potvrdí tvoj lístok
+                </div>
               </div>
             )}
 
