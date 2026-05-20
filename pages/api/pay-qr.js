@@ -16,13 +16,17 @@ export default async function handler(req, res) {
 
     const QRCode = require('qrcode');
     const bysquare = await import('bysquare');
-    const { encode, PaymentOptions, CurrencyCode } = bysquare;
+
+    // bysquare v4 — enum hodnoty sú priamo čísla
+    const encode = bysquare.encode || bysquare.default?.encode;
+    const PaymentOptions = bysquare.PaymentOptions ?? bysquare.default?.PaymentOptions ?? { PaymentOrder: 1 };
+    const CurrencyCode = bysquare.CurrencyCode ?? bysquare.default?.CurrencyCode ?? { EUR: 'EUR' };
 
     const payload = encode({
       payments: [{
-        type: PaymentOptions.PaymentOrder,
+        type: PaymentOptions.PaymentOrder ?? 1,
         amount: parsedAmount,
-        currencyCode: CurrencyCode.EUR,
+        currencyCode: CurrencyCode.EUR ?? 'EUR',
         bankAccounts: [{ iban: cleanIban }],
         variableSymbol: vs || undefined,
         paymentNote: message || 'Gifty contribution',
