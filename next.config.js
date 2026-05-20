@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  // ✅ Oprava bysquare ESM bundling problému
+  serverExternalPackages: ['bysquare', 'qrcode'],
+
   images: {
     domains: ['firebasestorage.googleapis.com', 'images.pexels.com', 'lh3.googleusercontent.com'],
   },
@@ -24,5 +28,4 @@ const nextConfig = {
     ];
   },
 };
-
 module.exports = nextConfig;
