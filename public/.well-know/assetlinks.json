@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gifty.cloud",
+      "sha256_cert_fingerprints": [
+        "88:30:F5:E7:20:FB:04:9F:75:4A:AC:E1:E8:2E:D3:38:3D:BF:27:54:D6:0B:EE:14:16:B2:73:D8:E7:5A:CF:64"
+      ]
+    }
+  }
+]
