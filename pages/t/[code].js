@@ -77,7 +77,7 @@ export default function TombolaPage({ tombola, code }) {
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(123,92,245,.4) 0%, transparent 65%)' }} />
             <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
               <div style={{ fontSize: 52, marginBottom: 4 }}>🎟️</div>
-              <img src="/weblogo.png" alt="Gifty" style={{ width: 80, mixBlendMode: 'screen', opacity: .7 }} />
+              <img src="/weblogo.png" alt="Gifty" style={{ width: 80, mixBlendMode: 'screen', filter: 'drop-shadow(0 4px 12px rgba(123,92,245,.5))' }} />
             </div>
           </div>
 
@@ -163,10 +163,14 @@ export default function TombolaPage({ tombola, code }) {
             )}
 
             {joined && !isDrawn && !myTicket && (
-              <div style={{ textAlign: 'center', padding: '16px 0' }}>
-                <div style={{ fontSize: 40, marginBottom: 8 }}>✅</div>
-                <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>Si zapojený(á)!</div>
-                <div style={{ fontSize: 13, color: 'var(--muted)' }}>Čakaj na žrebovanie. Výsledky sa zobrazia priamo tu.</div>
+              <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #22C55E, #16A34A)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px', boxShadow: '0 8px 24px rgba(34,197,94,.3)' }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div style={{ fontSize: 17, fontWeight: 800, marginBottom: 6 }}>Si zapojený(á)!</div>
+                <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.5 }}>Čakaj na žrebovanie.<br/>Výsledky sa zobrazia priamo tu.</div>
               </div>
             )}
 
