@@ -1,11 +1,11 @@
-export default function PrivacyPage() {
+export default function CookiesPage() {
   return null;
 }
 
 export async function getServerSideProps() {
   return {
     redirect: {
-      destination: '/privacy.html',
+      destination: '/cookies.html',
       permanent: false,
     },
   };

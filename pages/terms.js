@@ -1,11 +1,11 @@
-export default function PrivacyPage() {
+export default function TermsPage() {
   return null;
 }
 
 export async function getServerSideProps() {
   return {
     redirect: {
-      destination: '/privacy.html',
+      destination: '/terms.html',
       permanent: false,
     },
   };
