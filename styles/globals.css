@@ -1,0 +1,273 @@
+/* globals.css — Gifty shared styles */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --violet: #7B5CF5;
+  --violet-light: #A78BFA;
+  --violet-pale: rgba(123,92,245,.12);
+  --violet-border: rgba(123,92,245,.22);
+  --pink: #C084FC;
+  --bg: #07091A;
+  --surface: #0D1128;
+  --surface2: #111630;
+  --border: rgba(255,255,255,.07);
+  --text: #F4F4FF;
+  --muted: rgba(244,244,255,.45);
+  --radius: 20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient glow background */
+.page-bg {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px 48px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page-bg::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(123,92,245,.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-bg::after {
+  content: '';
+  position: fixed;
+  bottom: -150px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(192,132,252,.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 32px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04) inset;
+  animation: cardIn .6s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Hero section in card */
+.card-hero {
+  position: relative;
+  height: 180px;
+  background: linear-gradient(145deg, #1A1040 0%, #0D0A2E 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+}
+
+.card-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(123,92,245,.35) 0%, transparent 65%);
+}
+
+.card-body {
+  padding: 28px 24px 30px;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--violet-pale);
+  border: 1px solid var(--violet-border);
+  border-radius: 100px;
+  padding: 5px 13px 5px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--violet-light);
+  margin-bottom: 18px;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--violet-light);
+  box-shadow: 0 0 6px 2px rgba(167,139,250,.6);
+}
+
+/* Buttons */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--violet) 0%, #9B85FF 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: opacity .2s, transform .15s;
+}
+
+.btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  transition: background .2s, border-color .2s;
+}
+
+.btn-secondary:hover { background: #161B38; border-color: var(--violet-border); }
+
+/* Input */
+.input {
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.input:focus { border-color: var(--violet-border); }
+.input::placeholder { color: var(--muted); }
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* Heading */
+.heading {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.5px;
+  margin-bottom: 10px;
+}
+
+.heading em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--violet-light), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Animations */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  display: inline-block;
+}
+
+/* Logo */
+.logo-img {
+  width: 140px;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 8px 28px rgba(123,92,245,.5));
+}
+
+/* Store buttons */
+.store-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.store-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: background .2s;
+}
+
+.store-btn:hover { background: #161B38; }
