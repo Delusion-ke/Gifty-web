@@ -15,33 +15,29 @@ export default async function handler(req, res) {
     const cleanIban = iban.replace(/\s/g, '').toUpperCase();
 
     const QRCode = require('qrcode');
-    const bysquare = await import('bysquare');
 
-    console.log('bysquare keys:', Object.keys(bysquare));
+    // bysquare v4 — encode je named export ale volá sa cez createPayment alebo priamo
+    // Skúsime require namiesto dynamic import
+    const bysquare = require('bysquare');
+    console.log('bysquare keys (require):', Object.keys(bysquare));
+    console.log('bysquare type:', typeof bysquare);
+    console.log('bysquare.default type:', typeof bysquare.default);
 
-    // Nájdi encode funkciu
+    // V bysquare v4 je encode ako: bysquare.encode alebo default export
     const encode = bysquare.encode
       || bysquare.default?.encode
-      || (typeof bysquare.default === 'function' ? bysquare.default : null);
+      || (typeof bysquare.default === 'function' ? bysquare.default : null)
+      || (typeof bysquare === 'function' ? bysquare : null);
 
-    if (!encode || typeof encode !== 'function') {
-      throw new Error('encode not found. Keys: ' + Object.keys(bysquare).join(', '));
+    if (!encode) {
+      throw new Error('encode not found. All keys: ' + JSON.stringify(Object.keys(bysquare)));
     }
-
-    // PaymentOptions.PaymentOrder = 1, CurrencyCode.EUR = 'EUR' v bysquare v4
-    const PaymentOptions = bysquare.PaymentOptions ?? bysquare.default?.PaymentOptions ?? {};
-    const CurrencyCode = bysquare.CurrencyCode ?? bysquare.default?.CurrencyCode ?? {};
-
-    const paymentType = PaymentOptions?.PaymentOrder ?? 1;
-    const currency = CurrencyCode?.EUR ?? 'EUR';
-
-    console.log('paymentType:', paymentType, 'currency:', currency);
 
     const payload = encode({
       payments: [{
-        type: paymentType,
+        type: 1,
         amount: parsedAmount,
-        currencyCode: currency,
+        currencyCode: 'EUR',
         bankAccounts: [{ iban: cleanIban }],
         variableSymbol: vs || undefined,
         paymentNote: message || 'Gifty',
