@@ -576,201 +576,114 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════
+     PREMIUM SEKCIA — vlož pred <footer> v landing.html
+     Do T objektu v <script> pridaj preklady zo sekcie TRANSLATIONS
+     ═══════════════════════════════════════════════════════ -->
+
+<section id="premium" class="premium-section">
+  <div class="premium-inner">
+
+    <div style="text-align:center">
+      <div class="prem-badge">
+        <span class="prem-badge-dot"></span>
+        <span data-t="prem_badge">Gifty Premium</span>
+      </div>
+      <h2 class="prem-title" data-t="prem_title">Darčeky bez limitov</h2>
+      <p class="prem-sub">
+        <span data-t="prem_sub_prefix">Odomkni všetky funkcie za</span>
+        <strong> 2.50€/mes</strong>
+        <span data-t="prem_sub_or"> alebo</span>
+        <strong> 15€/rok</strong>
+      </p>
+    </div>
+
+    <div class="prem-grid">
+
+      <!-- FREE -->
+      <div class="prem-card">
+        <p class="prem-plan" data-t="plan_free">Free</p>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="f_wishes">Max 10 prianí/rok</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="f_groups">1 skupina</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="f_claim">Kúpim ja</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="f_qr">QR platby</span></div>
+        <div class="prem-item prem-dim"><div class="prem-dash">—</div><span data-t="f_events">Udalosti (len pozvaný)</span></div>
+        <div class="prem-item prem-dim"><div class="prem-dash">—</div><span data-t="f_tombola">Tombola (len účasť)</span></div>
+        <div class="prem-item prem-dim"><div class="prem-dash">—</div><span data-t="f_priority">Priorita prianí</span></div>
+        <div class="prem-price-block">
+          <div class="prem-price">0€</div>
+          <div class="prem-price-note" data-t="f_forever">navždy zadarmo</div>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="prem-card prem-featured">
+        <div class="prem-pill" data-t="prem_popular">Najpopulárnejší</div>
+        <p class="prem-plan prem-plan-purple" data-t="plan_premium">Premium</p>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_wishes">Neobmedzené priania</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_groups">Neobmedzené skupiny</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_claim">Kúpim ja</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_qr">QR platby</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_events">Udalosti — vytváranie</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_tombola">Tombola — vytváranie</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_priority">Priorita prianí</span><span class="prem-stars"> ★★★★★</span></div>
+        <div class="prem-item"><div class="prem-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><span data-t="p_vs">Vlastný VS per prianie</span></div>
+        <div class="prem-price-block">
+          <div class="prem-price">2.50€<span>/mes</span></div>
+          <div class="prem-price-note" data-t="p_annual">alebo 15€/rok · zruš kedykoľvek</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="prem-cta">
+      <a href="https://play.google.com/store/apps/details?id=com.gifty.cloud" class="prem-btn" target="_blank">
+        ★ <span data-t="prem_cta">Získať Premium</span>
+      </a>
+      <p class="prem-cta-note" data-t="prem_cta_note">Zruš kedykoľvek · Žiadne skryté poplatky · Platba cez Google Play</p>
+    </div>
+
+  </div>
+</section>
+
 <style>
-.premium-section {
-  padding: 100px 44px;
-  position: relative;
-}
-
-.premium-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(123,97,255,.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.premium-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.section-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(123,97,255,.12);
-  border: 1px solid rgba(123,97,255,.25);
-  border-radius: 100px;
-  padding: 6px 16px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #B388FF;
-  margin-bottom: 20px;
-}
-
-.badge-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #B388FF;
-  box-shadow: 0 0 6px 2px rgba(179,136,255,.6);
-}
-
-.section-title {
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 12px;
-}
-
-.section-desc {
-  font-size: 16px;
-  color: rgba(255,255,255,.55);
-  margin-bottom: 48px;
-}
-
-/* Compare table */
-.compare-table {
-  background: rgba(13,17,40,.8);
-  border: 1px solid rgba(255,255,255,.07);
-  border-radius: 24px;
-  overflow: hidden;
-  text-align: left;
-  margin-bottom: 40px;
-}
-
-.compare-header {
-  display: grid;
-  grid-template-columns: 2fr 1.2fr 1.4fr;
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  background: rgba(123,97,255,.06);
-}
-
-.compare-col { text-align: center; }
-
-.plan-name {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,.4);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-.plan-badge {
-  font-size: 12px;
-  font-weight: 700;
-  color: #B388FF;
-  margin-bottom: 4px;
-}
-
-.plan-price {
-  font-size: 22px;
-  font-weight: 800;
-  color: #fff;
-}
-
-.plan-price span { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.5); }
-
-.plan-annual {
-  font-size: 11px;
-  color: rgba(255,255,255,.35);
-  margin-top: 2px;
-}
-
-.compare-rows { padding: 0 8px; }
-
-.compare-row {
-  display: grid;
-  grid-template-columns: 2fr 1.2fr 1.4fr;
-  padding: 12px 16px;
-  border-radius: 8px;
-  align-items: center;
-}
-
-.compare-row.alt { background: rgba(255,255,255,.025); }
-
-.compare-label {
-  font-size: 14px;
-  color: rgba(255,255,255,.7);
-}
-
-.compare-val {
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255,255,255,.35);
-}
-
-.compare-val.free.check { color: rgba(255,255,255,.6); }
-.compare-val.premium { color: rgba(255,255,255,.5); }
-.compare-val.premium.check { color: #22C55E; font-weight: 700; }
-
-/* CTA */
-.btn-premium {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 40px;
-  background: linear-gradient(135deg, #7B61FF, #B388FF);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 800;
-  border-radius: 16px;
-  text-decoration: none;
-  box-shadow: 0 16px 40px rgba(123,97,255,.35);
-  transition: transform .2s, box-shadow .2s;
-}
-
-.btn-premium:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 50px rgba(123,97,255,.45);
-}
-
-.cta-note {
-  margin-top: 14px;
-  font-size: 13px;
-  color: rgba(255,255,255,.35);
-}
-
-@media(max-width: 600px) {
-  .premium-section { padding: 60px 20px; }
-  .compare-row, .compare-header { grid-template-columns: 1.8fr 1fr 1.2fr; padding: 10px 12px; }
-  .compare-label { font-size: 13px; }
-  .plan-price { font-size: 18px; }
-}
+.premium-section{padding:100px 44px;position:relative;overflow:hidden}
+.premium-section::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(123,92,245,.1) 0%,transparent 70%);pointer-events:none}
+.premium-inner{max-width:760px;margin:0 auto}
+.prem-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(123,92,245,.12);border:1px solid rgba(123,92,245,.25);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:#B388FF;margin-bottom:18px}
+.prem-badge-dot{width:6px;height:6px;border-radius:50%;background:#B388FF;box-shadow:0 0 6px 2px rgba(179,136,255,.5)}
+.prem-title{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-1px;margin:0 0 10px;background:linear-gradient(135deg,#fff 40%,#B388FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.prem-sub{font-size:16px;color:rgba(244,244,255,.55);margin:0 0 40px}
+.prem-sub strong{color:#fff;font-weight:600}
+.prem-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.prem-card{background:#0D1128;border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:26px;position:relative}
+.prem-card.prem-featured{border:1.5px solid rgba(123,92,245,.5);background:rgba(123,92,245,.06)}
+.prem-pill{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7B5CF5,#B388FF);color:#fff;font-size:11px;font-weight:700;padding:4px 16px;border-radius:100px;white-space:nowrap;letter-spacing:.3px}
+.prem-plan{font-size:10px;font-weight:700;letter-spacing:1.5px;color:rgba(244,244,255,.35);text-transform:uppercase;margin:0 0 16px}
+.prem-plan-purple{color:rgba(179,136,255,.65)!important}
+.prem-item{display:flex;align-items:center;gap:9px;font-size:13px;margin-bottom:9px;color:rgba(244,244,255,.85)}
+.prem-item.prem-dim{color:rgba(244,244,255,.32)}
+.prem-check{width:18px;height:18px;border-radius:50%;background:rgba(34,197,94,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prem-check svg{width:10px;height:10px;stroke:#22C55E;stroke-width:2.5;fill:none}
+.prem-dash{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:rgba(244,244,255,.2);font-size:14px}
+.prem-stars{color:#B388FF;font-size:11px;letter-spacing:1px}
+.prem-price-block{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07)}
+.prem-price{font-size:26px;font-weight:800;color:#F4F4FF;letter-spacing:-.5px}
+.prem-price span{font-size:13px;font-weight:400;color:rgba(244,244,255,.45)}
+.prem-price-note{font-size:11px;color:rgba(244,244,255,.4);margin-top:3px}
+.prem-cta{text-align:center}
+.prem-btn{display:inline-flex;align-items:center;gap:8px;padding:15px 40px;background:linear-gradient(135deg,#7B5CF5,#B388FF);color:#fff;font-size:15px;font-weight:800;border-radius:14px;text-decoration:none;font-family:inherit;letter-spacing:.2px;box-shadow:0 12px 32px rgba(123,92,245,.3);transition:transform .2s,box-shadow .2s}
+.prem-btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(123,92,245,.4)}
+.prem-cta-note{font-size:12px;color:rgba(244,244,255,.35);margin-top:12px}
+@media(max-width:600px){.premium-section{padding:60px 20px}.prem-grid{grid-template-columns:1fr}.prem-featured{margin-top:20px}}
 </style>
 
-<script>
-/* i18n preklady pre premium sekciu — pridaj do existujúceho T objektu */
-/*
-sk: {
-  premium_badge: 'Gifty Premium', premium_title: 'Darčeky bez limitov',
-  premium_desc: 'Odomkni všetky funkcie a užívaj si Gifty naplno.',
-  annual: 'alebo 15€/rok', get_premium: 'Získať Premium',
-  cta_note: 'Zruš kedykoľvek. Žiadne skryté poplatky.',
-  c_wishes: 'Priania', c_wishes_free: 'max 10/rok', c_wishes_premium: 'Neobmedzene',
-  c_groups: 'Skupiny', c_groups_premium: 'Neobmedzene',
-  c_events: 'Udalosti', c_events_free: 'Len pozvaný', c_events_premium: '✓ Vytváranie',
-  c_tombola: 'Tombola', c_tombola_free: 'Len účasť', c_tombola_premium: '✓ Vytváranie',
-  c_priority: 'Priorita prianí', c_vs: 'VS per prianie', c_claim: 'Kúpim ja',
-},
-en: {
-  premium_badge: 'Gifty Premium', premium_title: 'Gifts without limits',
-  premium_desc: 'Unlock all features and enjoy Gifty to the fullest.',
-  annual: 'or €15/year', get_premium: 'Get Premium',
-  cta_note: 'Cancel anytime. No hidden fees.',
-  c_wishes: 'Wishes', c_wishes_free: 'max 10/year', c_wishes_premium: 'Unlimited',
-  c_groups: 'Groups', c_groups_premium: 'Unlimited',
-  c_events: 'Events', c_events_free: 'Invited only', c_events_premium: '✓ Create',
-  c_tombola: 'Tombola', c_tombola_free: 'Join only', c_tombola_premium: '✓ Create',
-  c_priority: 'Wish priority', c_vs: 'VS per wish', c_claim: 'I\'ll buy it',
-},
-*/
-</script>
+<!-- TRANSLATIONS — pridaj do T objektu v landing.html:
+
+sk:{prem_badge:'Gifty Premium',prem_title:'Darčeky bez limitov',prem_sub_prefix:'Odomkni všetky funkcie za',prem_sub_or:'alebo',plan_free:'Free',plan_premium:'Premium',prem_popular:'Najpopulárnejší',f_wishes:'Max 10 prianí/rok',f_groups:'1 skupina',f_claim:'Kúpim ja',f_qr:'QR platby',f_events:'Udalosti (len pozvaný)',f_tombola:'Tombola (len účasť)',f_priority:'Priorita prianí',f_forever:'navždy zadarmo',p_wishes:'Neobmedzené priania',p_groups:'Neobmedzené skupiny',p_claim:'Kúpim ja',p_qr:'QR platby',p_events:'Udalosti — vytváranie',p_tombola:'Tombola — vytváranie',p_priority:'Priorita prianí',p_vs:'Vlastný VS per prianie',p_annual:'alebo 15€/rok · zruš kedykoľvek',prem_cta:'Získať Premium',prem_cta_note:'Zruš kedykoľvek · Žiadne skryté poplatky · Platba cez Google Play'},
+
+en:{prem_badge:'Gifty Premium',prem_title:'Gifts without limits',prem_sub_prefix:'Unlock all features for',prem_sub_or:'or',plan_free:'Free',plan_premium:'Premium',prem_popular:'Most popular',f_wishes:'Max 10 wishes/year',f_groups:'1 group',f_claim:"I'll buy it",f_qr:'QR payments',f_events:'Events (invited only)',f_tombola:'Tombola (join only)',f_priority:'Wish priority',f_forever:'free forever',p_wishes:'Unlimited wishes',p_groups:'Unlimited groups',p_claim:"I'll buy it",p_qr:'QR payments',p_events:'Events — create',p_tombola:'Tombola — create',p_priority:'Wish priority',p_vs:'Custom VS per wish',p_annual:'or €15/year · cancel anytime',prem_cta:'Get Premium',prem_cta_note:'Cancel anytime · No hidden fees · Payment via Google Play'},
+-->
 
 
 <!-- FOOTER -->
