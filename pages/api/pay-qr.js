@@ -16,28 +16,17 @@ export default async function handler(req, res) {
 
     const QRCode = require('qrcode');
 
-    // bysquare v4 — encode je named export ale volá sa cez createPayment alebo priamo
-    // Skúsime require namiesto dynamic import
-    const bysquare = require('bysquare');
-    console.log('bysquare keys (require):', Object.keys(bysquare));
-    console.log('bysquare type:', typeof bysquare);
-    console.log('bysquare.default type:', typeof bysquare.default);
+    // bysquare v4 — encode je v submodule bysquare/pay
+    const { encode, PaymentOptions, CurrencyCode } = await import('bysquare/pay');
 
-    // V bysquare v4 je encode ako: bysquare.encode alebo default export
-    const encode = bysquare.encode
-      || bysquare.default?.encode
-      || (typeof bysquare.default === 'function' ? bysquare.default : null)
-      || (typeof bysquare === 'function' ? bysquare : null);
-
-    if (!encode) {
-      throw new Error('encode not found. All keys: ' + JSON.stringify(Object.keys(bysquare)));
-    }
+    console.log('encode type:', typeof encode);
+    console.log('PaymentOptions:', PaymentOptions);
 
     const payload = encode({
       payments: [{
-        type: 1,
+        type: PaymentOptions.PaymentOrder,
         amount: parsedAmount,
-        currencyCode: 'EUR',
+        currencyCode: CurrencyCode.EUR,
         bankAccounts: [{ iban: cleanIban }],
         variableSymbol: vs || undefined,
         paymentNote: message || 'Gifty',
