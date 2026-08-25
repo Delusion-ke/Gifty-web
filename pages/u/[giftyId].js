@@ -37,20 +37,27 @@ export default function ProfilePage({ profile, giftyId }) {
           <div className="card-hero" style={{ height: 220 }}>
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(123,92,245,.35) 0%, transparent 65%)' }} />
             <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-              <svg width="72" height="72" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="90" height="90" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  <linearGradient id="lg1" x1="6" y1="6" x2="58" y2="58">
-                    <stop offset="0%" stopColor="#7B5CF5"/>
-                    <stop offset="100%" stopColor="#C084FC"/>
+                  <linearGradient id="gLogo" x1="20" y1="10" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#A855F7"/>
+                    <stop offset="100%" stopColor="#EC4899"/>
                   </linearGradient>
                 </defs>
-                <rect x="6" y="30" width="52" height="28" rx="7" stroke="url(#lg1)" strokeWidth="3"/>
-                <rect x="13" y="18" width="38" height="14" rx="5" stroke="url(#lg1)" strokeWidth="3"/>
-                <path d="M32 18C32 18 26 8 20 12C14 16 20 18 32 18C44 18 50 16 44 12C38 8 32 18 32 18Z" stroke="url(#lg1)" strokeWidth="2.5"/>
-                <path d="M27 46C27 46 30 50 32 47C34 44 32 40 29 42C26 44 27 46 27 46Z" fill="url(#lg1)"/>
-                <line x1="32" y1="18" x2="32" y2="58" stroke="url(#lg1)" strokeWidth="2.5"/>
+                {/* Maška — ľavá slučka */}
+                <path d="M60 28 C60 28 44 8 36 14 C28 20 38 28 60 28Z" stroke="url(#gLogo)" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                {/* Maška — pravá slučka */}
+                <path d="M60 28 C60 28 76 8 84 14 C92 20 82 28 60 28Z" stroke="url(#gLogo)" strokeWidth="5" strokeLinecap="round" fill="none"/>
+                {/* Telo krabičky */}
+                <rect x="22" y="42" width="76" height="62" rx="10" stroke="url(#gLogo)" strokeWidth="5" fill="none"/>
+                {/* Vrchná časť krabičky */}
+                <rect x="16" y="28" width="88" height="16" rx="6" stroke="url(#gLogo)" strokeWidth="5" fill="none"/>
+                {/* Srdce vo vnútri */}
+                <path d="M60 90 C60 90 40 75 40 63 C40 55 47 50 53.5 53 C56.5 54.5 58.5 57 60 59 C61.5 57 63.5 54.5 66.5 53 C73 50 80 55 80 63 C80 75 60 90 60 90Z" stroke="url(#gLogo)" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                {/* Malé srdce pod krabičkou */}
+                <path d="M60 107 C60 107 56 104 56 101.5 C56 99.5 57.5 98 59 98.8 C59.7 99.2 60 99.8 60 99.8 C60 99.8 60.3 99.2 61 98.8 C62.5 98 64 99.5 64 101.5 C64 104 60 107 60 107Z" fill="#6366F1"/>
               </svg>
-              <span style={{ fontSize: 28, fontWeight: 800, background: 'linear-gradient(135deg, #fff 0%, #C084FC 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Gifty</span>
+              <span style={{ fontSize: 26, fontWeight: 800, color: '#fff', letterSpacing: -0.5 }}>Gifty</span>
               <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', letterSpacing: 1 }}>Celebrate together.</span>
             </div>
           </div>
