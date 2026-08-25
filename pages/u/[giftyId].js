@@ -36,7 +36,23 @@ export default function ProfilePage({ profile, giftyId }) {
         <div className="card">
           <div className="card-hero" style={{ height: 220 }}>
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(123,92,245,.35) 0%, transparent 65%)' }} />
-            <img src="/weblogo.png" alt="Gifty" className="logo-img" style={{ position: 'relative', zIndex: 2 }} />
+            <div style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+              <svg width="72" height="72" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="lg1" x1="6" y1="6" x2="58" y2="58">
+                    <stop offset="0%" stopColor="#7B5CF5"/>
+                    <stop offset="100%" stopColor="#C084FC"/>
+                  </linearGradient>
+                </defs>
+                <rect x="6" y="30" width="52" height="28" rx="7" stroke="url(#lg1)" strokeWidth="3"/>
+                <rect x="13" y="18" width="38" height="14" rx="5" stroke="url(#lg1)" strokeWidth="3"/>
+                <path d="M32 18C32 18 26 8 20 12C14 16 20 18 32 18C44 18 50 16 44 12C38 8 32 18 32 18Z" stroke="url(#lg1)" strokeWidth="2.5"/>
+                <path d="M27 46C27 46 30 50 32 47C34 44 32 40 29 42C26 44 27 46 27 46Z" fill="url(#lg1)"/>
+                <line x1="32" y1="18" x2="32" y2="58" stroke="url(#lg1)" strokeWidth="2.5"/>
+              </svg>
+              <span style={{ fontSize: 28, fontWeight: 800, background: 'linear-gradient(135deg, #fff 0%, #C084FC 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Gifty</span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', letterSpacing: 1 }}>Celebrate together.</span>
+            </div>
           </div>
 
           <div className="card-body">
@@ -95,29 +111,26 @@ export async function getServerSideProps({ params }) {
   let profile = null;
 
   try {
-    const PROJECT_ID = 'gifty-f57bc';
-    const res = await fetch(`https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents:runQuery`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        structuredQuery: {
-          from: [{ collectionId: 'profiles' }],
-          where: { fieldFilter: { field: { fieldPath: 'giftyId' }, op: 'EQUAL', value: { stringValue: giftyId } } },
-          limit: 1,
-        },
-      }),
-    });
-    const data = await res.json();
-    const doc = data?.[0]?.document;
-    if (doc?.fields) {
-      const f = doc.fields;
+    const { initFirebaseAdmin } = require('../../lib/firebaseAdmin');
+    const admin = initFirebaseAdmin();
+    const db = admin.firestore();
+
+    const snap = await db.collection('profiles')
+      .where('giftyId', '==', giftyId)
+      .limit(1)
+      .get();
+
+    if (!snap.empty) {
+      const doc = snap.docs[0].data();
       profile = {
-        name: f.name?.stringValue || null,
-        giftyId: f.giftyId?.stringValue || giftyId,
-        avatarUrl: f.avatarUrl?.stringValue || null,
+        name: doc.name || null,
+        giftyId: doc.giftyId || giftyId,
+        avatarUrl: doc.avatarUrl || null,
       };
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error('getServerSideProps error:', e.message);
+  }
 
   return { props: { profile, giftyId } };
 }
