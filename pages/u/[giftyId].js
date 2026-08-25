@@ -2,16 +2,34 @@ import Head from 'next/head';
 
 export default function ProfilePage({ profile, giftyId }) {
   const name = profile?.name || 'Gifty používateľ';
+  const pageUrl = `https://gifty.cloud/u/${giftyId}`;
+  const ogTitle = `${name} má wishlist na Gifty 🎁`;
+  const ogDescription = `Pozri čo si ${name} praje a prispej presne na to čo chce — jedným skenovaním QR kódu. Žiadne darčekové tašky, žiadne nevhodné darčeky.`;
+  const ogImage = profile?.avatarUrl
+    ? `https://gifty.cloud/api/og?name=${encodeURIComponent(name)}&giftyId=${giftyId}`
+    : 'https://gifty.cloud/og-image.png';
 
   return (
     <>
       <Head>
         <title>{`${name} — Gifty Wishlist`}</title>
-        <meta name="description" content="Pozri môj wishlist a prispej presne na to čo si prajem cez QR platbu." />
-        <meta property="og:title" content={`Pozri môj Gifty wishlist 🎁`} />
-        <meta property="og:description" content="Zabudni na obálky s peniazmi. Prispej presne na to čo si prajem — jedným skenovaním QR kódu." />
-        <meta property="og:image" content="https://gifty.cloud/og-image.png" />
+        <meta name="description" content={ogDescription} />
+
+        {/* Open Graph — WhatsApp, Messenger, Facebook */}
+        <meta property="og:title" content={ogTitle} />
+        <meta property="og:description" content={ogDescription} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Gifty" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={ogTitle} />
+        <meta name="twitter:description" content={ogDescription} />
+        <meta name="twitter:image" content={ogImage} />
       </Head>
 
       <div className="page-bg">

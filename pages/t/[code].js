@@ -9,7 +9,8 @@ export default function TombolaPage({ tombola, code }) {
   const [participants, setParticipants] = useState(tombola?.participantCount || 0);
   const [results, setResults] = useState(tombola?.results || null);
   const [myResult, setMyResult] = useState(null);
-  const [myTicket, setMyTicket] = useState(null); // { vs, qrImage }
+  const [myTicket, setMyTicket] = useState(null);
+  const [ticketCount, setTicketCount] = useState(1); // { vs, qrImage }
 
   const isDrawn = tombola?.status === 'drawn';
   const isClosed = tombola?.status === 'closed';
@@ -22,7 +23,7 @@ export default function TombolaPage({ tombola, code }) {
       const res = await fetch('/api/tombola-join', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, name: name.trim() }),
+        body: JSON.stringify({ code, name: name.trim(), ticketCount }),
       });
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Chyba'); return; }
@@ -155,9 +156,33 @@ export default function TombolaPage({ tombola, code }) {
                   style={{ marginBottom: 10 }}
                   maxLength={50}
                 />
+
+                {/* Počet lístkov */}
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--muted)', letterSpacing: 1, marginBottom: 8 }}>POČET LÍSTKOV</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <button
+                      onClick={() => setTicketCount(c => Math.max(1, c - 1))}
+                      style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--surface2)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >−</button>
+                    <div style={{ flex: 1, textAlign: 'center' }}>
+                      <span style={{ fontSize: 22, fontWeight: 800, color: 'var(--violet-light)' }}>{ticketCount}</span>
+                      {tombola.isPaid && tombola.ticketPrice > 0 && (
+                        <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>
+                          Celkom: €{(ticketCount * tombola.ticketPrice).toFixed(2)}
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => setTicketCount(c => Math.min(10, c + 1))}
+                      style={{ width: 36, height: 36, borderRadius: 10, background: 'var(--surface2)', border: '1px solid var(--border)', color: 'var(--text)', fontSize: 20, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    >+</button>
+                  </div>
+                </div>
+
                 {error && <div style={{ fontSize: 12, color: '#EF4444', marginBottom: 8 }}>{error}</div>}
                 <button className="btn-primary" onClick={handleJoin} disabled={loading}>
-                  {loading ? <span className="spinner" /> : '🎟️ Zapojiť sa do tomboly'}
+                  {loading ? <span className="spinner" /> : `🎟️ Zapojiť sa${ticketCount > 1 ? ` (${ticketCount} lístky)` : ''}`}
                 </button>
               </div>
             )}
@@ -170,20 +195,35 @@ export default function TombolaPage({ tombola, code }) {
                   </svg>
                 </div>
                 <div style={{ fontSize: 17, fontWeight: 800, marginBottom: 6 }}>Si zapojený(á)!</div>
-                <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.5 }}>Čakaj na žrebovanie.<br/>Výsledky sa zobrazia priamo tu.</div>
+                {myTicket?.tickets?.length > 0 && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', margin: '10px 0' }}>
+                    {myTicket.tickets.map((t, i) => (
+                      <div key={i} style={{ background: 'var(--violet-pale)', border: '1px solid var(--violet-border)', borderRadius: 8, padding: '4px 12px', fontSize: 16, fontWeight: 800, color: 'var(--violet-light)', letterSpacing: 1 }}>
+                        #{t}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.5 }}>
+                  {myTicket?.tickets?.length > 1 ? 'Toto sú tvoje čísla lístkov.' : 'Čakaj na žrebovanie.'}<br/>Výsledky sa zobrazia priamo tu.
+                </div>
               </div>
             )}
 
             {/* Platený lístok — QR + VS */}
-            {joined && myTicket && !isDrawn && (
+            {joined && myTicket && myTicket.vs && !isDrawn && (
               <div style={{ marginTop: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--muted)', letterSpacing: 1, marginBottom: 12 }}>
-                  ZAPLAŤ ZA LÍSTOK
+                  ZAPLAŤ ZA LÍSTKY
                 </div>
                 <div style={{ padding: 16, background: 'var(--surface2)', borderRadius: 16, border: '1px solid var(--border)', marginBottom: 12 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ fontSize: 13, color: 'var(--muted)' }}>Suma</span>
-                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--violet-light)' }}>€{myTicket.price?.toFixed(2)}</span>
+                    <span style={{ fontSize: 13, color: 'var(--muted)' }}>Počet lístkov</span>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)' }}>{myTicket.tickets?.length || 1}x</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, color: 'var(--muted)' }}>Celková suma</span>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--violet-light)' }}>€{myTicket.totalPrice?.toFixed(2)}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                     <span style={{ fontSize: 13, color: 'var(--muted)' }}>Variabilný symbol</span>
@@ -192,13 +232,23 @@ export default function TombolaPage({ tombola, code }) {
                       {myTicket.vs} 📋
                     </span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                     <span style={{ fontSize: 13, color: 'var(--muted)' }}>IBAN</span>
                     <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)', cursor: 'pointer' }}
                       onClick={() => navigator.clipboard?.writeText(myTicket.iban)}>
                       {myTicket.iban?.slice(0, 8)}... 📋
                     </span>
                   </div>
+                  {myTicket.tickets?.length > 0 && (
+                    <div style={{ marginTop: 8, paddingTop: 8, borderTop: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 6 }}>TVOJE ČÍSLA LÍSTKOV</div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                        {myTicket.tickets.map((t, i) => (
+                          <div key={i} style={{ background: 'var(--violet-pale)', border: '1px solid var(--violet-border)', borderRadius: 6, padding: '2px 8px', fontSize: 13, fontWeight: 700, color: 'var(--violet-light)' }}>#{t}</div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {myTicket.qrImage && (
@@ -212,8 +262,48 @@ export default function TombolaPage({ tombola, code }) {
                   </div>
                 )}
 
+                {/* Vždy zobrazené platobné údaje */}
+                {myTicket.iban && (
+                  <div style={{ padding: 12, background: 'var(--card)', borderRadius: 12, border: '1px solid var(--border)', marginBottom: 12 }}>
+                    <div style={{ fontSize: 11, color: 'var(--muted)', marginBottom: 8, letterSpacing: 1 }}>PLATOBNÉ ÚDAJE</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                      <span style={{ fontSize: 13, color: 'var(--muted)' }}>IBAN</span>
+                      <span style={{ fontSize: 13, fontFamily: 'monospace', color: 'var(--text)' }}>{myTicket.iban}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                      <span style={{ fontSize: 13, color: 'var(--muted)' }}>Suma</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>€{myTicket.totalPrice?.toFixed(2)}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ fontSize: 13, color: 'var(--muted)' }}>VS</span>
+                      <span style={{ fontSize: 13, fontFamily: 'monospace', color: 'var(--text)' }}>{myTicket.vs}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* PAYme — otvoriť bankovú appku */}
+                {myTicket.iban && myTicket.iban.replace(/\s/g, '').startsWith('SK') && (
+                  <a
+                    href={`https://www.payme.sk?V=1&IBAN=${myTicket.iban.replace(/\s/g, '')}&AM=${myTicket.totalPrice?.toFixed(2)}&CC=EUR&PI=/VS${myTicket.vs}//&MSG=${encodeURIComponent('Tombola ' + (tombola?.title || ''))}&CN=${encodeURIComponent(tombola?.ownerName || 'Gifty')}`}
+                    style={{
+                      display: 'block',
+                      textAlign: 'center',
+                      padding: '12px 16px',
+                      background: 'var(--violet-light)',
+                      color: '#fff',
+                      borderRadius: 12,
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      fontSize: 14,
+                      marginBottom: 12,
+                    }}
+                  >
+                    📱 Zaplatiť v bankovej appke
+                  </a>
+                )}
+
                 <div style={{ padding: 12, background: 'rgba(245,158,11,0.1)', borderRadius: 12, border: '1px solid rgba(245,158,11,0.3)', fontSize: 13, color: '#F59E0B', textAlign: 'center' }}>
-                  ⏳ Po zaplatení organizátor potvrdí tvoj lístok
+                  ⏳ Po zaplatení organizátor potvrdí tvoje lístky
                 </div>
               </div>
             )}
