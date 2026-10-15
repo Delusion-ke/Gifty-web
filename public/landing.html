@@ -77,10 +77,10 @@
     .hero-r{position:relative;z-index:1;display:flex;justify-content:center}
     .pw{position:relative;animation:float 5s ease-in-out infinite}
     .pg{position:absolute;inset:-50px;background:radial-gradient(ellipse at center,rgba(123,97,255,.18) 0%,transparent 65%);pointer-events:none}
-    .phone{width:268px;background:#0A0F1E;border-radius:46px;border:1.5px solid rgba(255,255,255,.10);overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 50px 100px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06)}
+    .phone{width:268px;background:#F5F7FB;border-radius:46px;border:1.5px solid rgba(255,255,255,.10);overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 50px 100px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06)}
     .pnotch{width:86px;height:24px;background:#000;border-radius:0 0 16px 16px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10}
-    .pstat{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 2px;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.85);position:relative;z-index:5}
-    .pscreen{padding:2px 13px 16px}
+    .pstat{display:flex;align-items:center;justify-content:space-between;padding:16px 22px 2px;font-size:10.5px;font-weight:700;color:#0F172A;position:relative;z-index:5}
+    .pvid{display:block;width:100%;aspect-ratio:450/994;background:#F5F7FB}
     .phdr{display:flex;align-items:center;justify-content:space-between;padding:10px 0 13px}
     .phdr-l{display:flex;align-items:center;gap:8px}
     .ptitle{font-size:20px;font-weight:800;letter-spacing:-.5px}
@@ -263,118 +263,12 @@
         <div class="pstat">
           <span>9:41</span>
           <span style="display:flex;gap:5px;align-items:center;">
-            <svg width="13" height="9" viewBox="0 0 13 9" fill="white"><rect x="0" y="3.5" width="2" height="5.5" rx=".4" opacity=".4"/><rect x="3" y="2" width="2" height="7" rx=".4" opacity=".6"/><rect x="6" y=".5" width="2" height="8.5" rx=".4" opacity=".8"/><rect x="9" y="0" width="2" height="9" rx=".4"/></svg>
-            <svg width="14" height="10" viewBox="0 0 20 14" fill="white"><path d="M10 3C6.5 3 3.4 4.5 1.3 7L0 5.5C2.5 2.6 6 1 10 1s7.5 1.6 10 4.5L18.7 7C16.6 4.5 13.5 3 10 3zm0 4c-2.2 0-4.2.9-5.7 2.4L3 8C4.9 6.1 7.3 5 10 5s5.1 1.1 7 3l-1.3 1.4C14.2 7.9 12.2 7 10 7zm0 4c-1.1 0-2.1.4-2.8 1.1L6 10.7C7.1 9.6 8.5 9 10 9s2.9.6 4 1.7l-1.2 1.4C12.1 11.4 11.1 11 10 11z" opacity=".9"/></svg>
-            <svg width="18" height="10" viewBox="0 0 22 10" fill="none"><rect x=".5" y=".5" width="18" height="9" rx="2.5" stroke="white" stroke-opacity=".4"/><rect x="1.5" y="1.5" width="13" height="7" rx="1.5" fill="white"/><path d="M20 3.5v3a1.5 1.5 0 000-3z" fill="white" opacity=".4"/></svg>
+            <svg width="13" height="9" viewBox="0 0 13 9" fill="#0F172A"><rect x="0" y="3.5" width="2" height="5.5" rx=".4" opacity=".4"/><rect x="3" y="2" width="2" height="7" rx=".4" opacity=".6"/><rect x="6" y=".5" width="2" height="8.5" rx=".4" opacity=".8"/><rect x="9" y="0" width="2" height="9" rx=".4"/></svg>
+            <svg width="14" height="10" viewBox="0 0 20 14" fill="#0F172A"><path d="M10 3C6.5 3 3.4 4.5 1.3 7L0 5.5C2.5 2.6 6 1 10 1s7.5 1.6 10 4.5L18.7 7C16.6 4.5 13.5 3 10 3zm0 4c-2.2 0-4.2.9-5.7 2.4L3 8C4.9 6.1 7.3 5 10 5s5.1 1.1 7 3l-1.3 1.4C14.2 7.9 12.2 7 10 7zm0 4c-1.1 0-2.1.4-2.8 1.1L6 10.7C7.1 9.6 8.5 9 10 9s2.9.6 4 1.7l-1.2 1.4C12.1 11.4 11.1 11 10 11z" opacity=".9"/></svg>
+            <svg width="18" height="10" viewBox="0 0 22 10" fill="none"><rect x=".5" y=".5" width="18" height="9" rx="2.5" stroke="#0F172A" stroke-opacity=".4"/><rect x="1.5" y="1.5" width="13" height="7" rx="1.5" fill="#0F172A"/><path d="M20 3.5v3a1.5 1.5 0 000-3z" fill="#0F172A" opacity=".4"/></svg>
           </span>
         </div>
-        <div class="pscreen">
-          <!-- Header -->
-          <div class="phdr">
-            <div class="phdr-l">
-              <!-- Mini logo in phone -->
-              <svg width="22" height="22" viewBox="0 0 80 80" fill="none">
-                <defs><linearGradient id="pl" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-                <rect x="8" y="36" width="64" height="38" rx="8" stroke="url(#pl)" stroke-width="5" fill="none"/>
-                <rect x="4" y="22" width="72" height="17" rx="5" stroke="url(#pl)" stroke-width="5" fill="none"/>
-                <line x1="40" y1="22" x2="40" y2="74" stroke="url(#pl)" stroke-width="5"/>
-                <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" stroke="url(#pl)" stroke-width="4" fill="none"/>
-                <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" stroke="url(#pl)" stroke-width="4" fill="none"/>
-                <path d="M30 52 C30 48 24 44 21 48 C18 52 21 56 30 62 C39 56 42 52 39 48 C36 44 30 48 30 52Z" fill="url(#pl)"/>
-              </svg>
-              <span class="ptitle">Gifty</span>
-            </div>
-            <div class="pacts">
-              <div class="pib">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              </div>
-              <div class="pib pib-plus">+</div>
-            </div>
-          </div>
-
-          <!-- Upcoming -->
-          <div class="upcoming">
-            <div class="uav">M</div>
-            <div>
-              <div class="uname">Marek</div>
-              <div class="usub">In 3 days</div>
-              <div class="udate">May 12</div>
-            </div>
-            <div class="ugift">
-              <!-- Purple gift icon like in real app -->
-              <svg width="36" height="36" viewBox="0 0 80 80" fill="none">
-                <defs><linearGradient id="gi" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-                <rect x="8" y="36" width="64" height="38" rx="8" fill="url(#gi)" opacity=".9"/>
-                <rect x="4" y="22" width="72" height="17" rx="5" fill="url(#gi)" opacity=".7"/>
-                <line x1="40" y1="22" x2="40" y2="74" stroke="white" stroke-width="4" opacity=".5"/>
-                <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" fill="url(#gi)" opacity=".8"/>
-                <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" fill="url(#gi)" opacity=".8"/>
-                <path d="M30 52 C30 49 25 46 22 49 C19 52 22 55 30 60 C38 55 41 52 38 49 C35 46 30 49 30 52Z" fill="white" opacity=".9"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Wishlist -->
-          <div class="psec"><span class="psec-t">My Wishlist</span><span class="psec-a">View all</span></div>
-
-          <div class="wc">
-            <div class="wci" style="background:#1a1a2e;">
-              <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><rect x="20" y="30" width="60" height="50" rx="4" fill="#e0e0e0"/><rect x="10" y="20" width="80" height="15" rx="3" fill="#bbb"/><circle cx="50" cy="65" r="10" fill="#888"/></svg>
-            </div>
-            <div><div class="wcn">PlayStation 5</div><div class="wcp">€499</div><div class="wcc">Contributed by 7 people</div></div>
-            <div class="wcr"><div class="wcpct">45%</div><div class="wcbar"><div class="wcfill" style="width:45%"></div></div></div>
-          </div>
-
-          <div class="wc">
-            <div class="wci" style="background:#1a1a2e;">
-              <svg width="32" height="32" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="38" stroke="#aaa" stroke-width="6" fill="none"/><circle cx="50" cy="50" r="24" fill="#888"/><rect x="42" y="20" width="16" height="8" rx="2" fill="#aaa"/></svg>
-            </div>
-            <div><div class="wcn">Apple Watch Series 9</div><div class="wcp">€429</div><div class="wcc">Contributed by 4 people</div></div>
-            <div class="wcr"><div class="wcpct">62%</div><div class="wcbar"><div class="wcfill" style="width:62%"></div></div></div>
-          </div>
-
-          <!-- Surprise me -->
-          <div class="surp">
-            <div class="surp-icon">
-              <svg width="38" height="38" viewBox="0 0 80 80" fill="none">
-                <defs><linearGradient id="si" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-                <rect x="8" y="36" width="64" height="38" rx="8" fill="url(#si)"/>
-                <rect x="4" y="22" width="72" height="17" rx="5" fill="url(#si)" opacity=".8"/>
-                <line x1="40" y1="22" x2="40" y2="74" stroke="white" stroke-width="4" opacity=".6"/>
-                <path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" fill="url(#si)"/>
-                <path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" fill="url(#si)"/>
-                <path d="M30 52 C30 49 25 46 22 49 C19 52 22 55 30 60 C38 55 41 52 38 49 C35 46 30 49 30 52Z" fill="white" opacity=".9"/>
-              </svg>
-            </div>
-            <div><div class="surp-t">Surprise me</div><div class="surp-s">Let others choose the perfect gift</div></div>
-          </div>
-
-          <!-- Bottom nav -->
-          <div class="pnav">
-            <div class="pni">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M8 18h.01"/></svg>
-              Calendar
-            </div>
-            <div class="pni">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              People
-            </div>
-            <div class="pni on">
-              <div class="pfab">
-                <svg width="18" height="18" viewBox="0 0 80 80" fill="none"><rect x="8" y="36" width="64" height="38" rx="8" fill="white"/><rect x="4" y="22" width="72" height="17" rx="5" fill="white" opacity=".8"/><line x1="40" y1="22" x2="40" y2="74" stroke="url(#lg)" stroke-width="5"/><path d="M40 22 C28 14 14 16 16 26 C18 36 34 34 40 22Z" fill="white"/><path d="M40 22 C52 14 66 16 64 26 C62 36 46 34 40 22Z" fill="white"/></svg>
-              </div>
-              Gifts
-            </div>
-            <div class="pni">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><circle cx="19" cy="8" r="2"/><path d="M19 6v4M17 8h4"/></svg>
-              Groups
-            </div>
-            <div class="pni">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              Profile
-            </div>
-          </div>
-        </div>
+        <video class="pvid" src="/gifty-demo.mp4" poster="/gifty-demo.jpg" autoplay muted loop playsinline preload="auto" aria-label="Ukážka aplikácie Gifty"></video>
       </div>
     </div>
   </div>
@@ -384,85 +278,27 @@
 <div class="icons-strip">
   <div class="icons-inner">
     <div class="icon-item">
-      <div class="icon-svg">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="ic1" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-          <rect x="6" y="8" width="44" height="42" rx="6" stroke="url(#ic1)" stroke-width="3.5" fill="none"/>
-          <line x1="6" y1="20" x2="50" y2="20" stroke="url(#ic1)" stroke-width="3.5"/>
-          <line x1="18" y1="4" x2="18" y2="14" stroke="url(#ic1)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="38" y1="4" x2="38" y2="14" stroke="url(#ic1)" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M20 34 C20 31 16 28 14 31 C12 34 14 37 20 41 C26 37 28 34 26 31 C24 28 20 31 20 34Z" fill="url(#ic1)"/>
-        </svg>
-      </div>
+      <div class="icon-svg"><svg viewBox="22 -426 467 467"><path fill="#7B61FF" d="M120 -413Q125 -417 131.5 -415.5Q138 -414 142 -408Q144 -405 144 -394V-384H256H368V-394Q368 -405 370 -408Q375 -416 384.0 -416.0Q393 -416 398 -408Q400 -405 400 -395V-384H414Q432 -383 443 -378Q470 -365 478 -335Q480 -330 480.5 -182.5Q481 -35 480 -26Q477 -3 462 13Q446 29 423 32Q415 32 256.0 32.0Q97 32 89 32Q67 29 51 14Q35 -3 32 -26Q31 -35 31.5 -182.5Q32 -330 34 -335Q42 -365 69 -378Q80 -383 98 -384H112V-395Q112 -409 120 -413ZM427 -350Q422 -352 256 -352H89L84 -350Q75 -346 69 -337Q64 -329 64 -312V-304H256H448V-313Q448 -322 447 -327Q443 -344 427 -350ZM448 -148V-272H256H64V-148V-24L67 -19Q72 -8 83 -3L88 0H256H424L429 -3Q440 -8 445 -19L448 -24ZM289 -239Q291 -240 297.5 -239.5Q304 -239 307 -237Q320 -230 320 -216Q320 -204 310.0 -196.5Q300 -189 288 -193Q279 -196 275 -205Q270 -214 274 -224Q278 -235 289 -239ZM384 -238Q393 -236 397.5 -227.0Q402 -218 399 -210Q394 -194 378 -192Q363 -191 355.5 -203.5Q348 -216 355 -228Q359 -234 367.0 -238.0Q375 -242 384 -238ZM126 -158Q136 -162 147 -157Q158 -152 159.5 -139.5Q161 -127 152 -119Q146 -112 136 -112Q121 -112 114 -126Q110 -136 114 -145Q118 -154 126 -158ZM206 -158Q210 -160 217 -159Q232 -159 238 -146Q242 -138 239 -128Q236 -119 227.0 -114.5Q218 -110 210 -113Q194 -118 192.5 -134.0Q191 -150 206 -158ZM288 -158Q291 -159 296 -160Q306 -160 314 -152Q323 -142 319.0 -129.5Q315 -117 302 -113Q291 -110 281.5 -117.0Q272 -124 272 -136Q272 -152 288 -158ZM365 -157Q382 -165 394 -152Q400 -145 400 -136Q400 -126 393.0 -119.0Q386 -112 376 -112Q366 -112 360 -119Q351 -127 352.5 -139.5Q354 -152 365 -157ZM131 -79Q142 -82 151.0 -74.5Q160 -67 160 -56Q160 -41 146.5 -34.5Q133 -28 121.0 -38.0Q109 -48 113 -62Q117 -77 131 -79ZM210 -79Q218 -81 227.0 -76.5Q236 -72 239 -64Q242 -54 238 -46Q234 -38 227 -35Q219 -31 210 -33Q198 -36 194 -48Q190 -58 194.5 -67.0Q199 -76 210 -79ZM290 -79Q290 -79 290 -79Q301 -82 310.0 -75.5Q319 -69 320 -58Q321 -38 302 -33Q291 -30 282.0 -36.5Q273 -43 272 -54Q271 -74 290 -79Z"/></svg></div>
       <div class="icon-title" data-t="feat1_title">Birthdays &amp; Namedays</div>
       <div class="icon-desc" data-t="feat1_desc">Never miss an important day</div>
     </div>
     <div class="icon-item">
-      <div class="icon-svg">
-        <svg viewBox="0 0 56 56" fill="none">
-          <defs><linearGradient id="ic2" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-          <rect x="6" y="26" width="44" height="26" rx="6" stroke="url(#ic2)" stroke-width="3.5" fill="none"/>
-          <rect x="3" y="16" width="50" height="14" rx="4" stroke="url(#ic2)" stroke-width="3.5" fill="none"/>
-          <line x1="28" y1="16" x2="28" y2="52" stroke="url(#ic2)" stroke-width="3.5"/>
-          <path d="M28 16 C20 10 10 12 12 20 C14 28 24 26 28 16Z" stroke="url(#ic2)" stroke-width="3" fill="none"/>
-          <path d="M28 16 C36 10 46 12 44 20 C42 28 32 26 28 16Z" stroke="url(#ic2)" stroke-width="3" fill="none"/>
-          <path d="M22 38 C22 35.5 18 33 16 36 C14 39 16 41.5 22 45 C28 41.5 30 39 28 36 C26 33 22 35.5 22 38Z" fill="url(#ic2)"/>
-        </svg>
-      </div>
+      <div class="icon-svg"><svg viewBox="23 -425 466 466"><path fill="#7B61FF" d="M186 -415Q200 -417 215 -414Q235 -410 250 -395L256 -390L262 -395Q277 -410 298 -414Q316 -418 332 -413Q350 -408 362 -395Q376 -382 381 -364Q383 -356 383 -344Q384 -326 376 -311L372 -304H397Q421 -304 426 -303Q439 -301 448 -292Q460 -280 463 -266Q464 -260 464.0 -233.0Q464 -206 463 -200Q462 -189 454.5 -179.5Q447 -170 438 -165L432 -163V-93Q432 -34 431.0 -23.5Q430 -13 425 -3Q421 5 413.0 13.0Q405 21 397 25Q386 31 372.0 31.5Q358 32 256.0 32.0Q154 32 140.0 31.5Q126 31 115 25Q107 21 99.0 13.0Q91 5 87 -3Q82 -13 81.0 -23.5Q80 -34 80 -93V-163L74 -165Q53 -176 49 -200Q48 -206 48.0 -233.0Q48 -260 49 -266Q52 -280 64 -292Q73 -301 86 -303Q91 -304 115 -304H140L136 -311Q128 -326 129 -344Q129 -356 131.0 -363.5Q133 -371 135 -376Q152 -408 186 -415ZM208 -383Q195 -386 182.5 -380.0Q170 -374 164 -361Q161 -355 161.0 -344.0Q161 -333 163 -328Q171 -312 186 -306Q192 -304 216 -304H240V-327Q240 -350 238 -355Q236 -365 227.5 -373.0Q219 -381 208 -383ZM322 -383Q293 -390 278 -364Q272 -355 272 -327V-304H296Q320 -304 326 -306Q341 -312 349 -328Q351 -333 351.0 -344.0Q351 -355 348 -361Q339 -379 322 -383ZM240 -232V-272H167Q95 -272 92.5 -271.5Q90 -271 88 -270Q82 -266 81 -260Q80 -257 80 -230L81 -203L83 -199Q85 -196 89.0 -194.0Q93 -192 166 -192H240ZM423 -270Q420 -272 346 -272H272V-232V-192H346Q419 -192 423.0 -194.0Q427 -196 429 -199L431 -203L432 -230Q432 -257 431 -260Q430 -266 423 -270ZM240 -80V-160H176H112V-96Q112 -33 113 -27Q115 -10 131 -3L136 0H188H240ZM400 -96Q400 -96 400 -96V-160H336H272V-80V0H324H376L382 -3Q397 -11 399 -27Q400 -33 400 -96Z"/></svg></div>
       <div class="icon-title" data-t="feat2_title">Wishlist</div>
       <div class="icon-desc" data-t="feat2_desc">Add, reserve or contribute</div>
     </div>
     <div class="icon-item">
-      <div class="icon-svg">
-        <svg viewBox="0 0 56 56" fill="none">
-          <defs><linearGradient id="ic3" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-          <!-- QR code style icon -->
-          <rect x="6" y="6" width="18" height="18" rx="3" stroke="url(#ic3)" stroke-width="3.5" fill="none"/>
-          <rect x="10" y="10" width="10" height="10" rx="1.5" fill="url(#ic3)"/>
-          <rect x="32" y="6" width="18" height="18" rx="3" stroke="url(#ic3)" stroke-width="3.5" fill="none"/>
-          <rect x="36" y="10" width="10" height="10" rx="1.5" fill="url(#ic3)"/>
-          <rect x="6" y="32" width="18" height="18" rx="3" stroke="url(#ic3)" stroke-width="3.5" fill="none"/>
-          <rect x="10" y="36" width="10" height="10" rx="1.5" fill="url(#ic3)"/>
-          <line x1="32" y1="32" x2="38" y2="32" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="32" y1="38" x2="50" y2="38" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="44" y1="32" x2="50" y2="32" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="50" y1="32" x2="50" y2="44" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="38" y1="44" x2="50" y2="44" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="38" y1="38" x2="38" y2="50" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="32" y1="50" x2="44" y2="50" stroke="url(#ic3)" stroke-width="3.5" stroke-linecap="round"/>
-        </svg>
-      </div>
+      <div class="icon-svg"><svg viewBox="23 -425 466 466"><path fill="#7B61FF" d="M54 -414Q57 -415 137 -415H217L221 -413Q232 -408 237 -398L239 -392V-312V-232L237 -227Q232 -216 221 -211L216 -209H136H56L51 -211Q35 -218 32 -236Q32 -241 32.0 -311.5Q32 -382 32 -388Q35 -407 54 -414ZM294 -415Q297 -415 377 -415H457L462 -413Q477 -405 480 -388Q480 -382 480.0 -311.5Q480 -241 480 -236Q477 -219 462 -211L456 -209H376H296L291 -211Q280 -216 275 -227L273 -232V-312V-392L275 -397Q277 -402 280 -405Q286 -412 294 -415ZM208 -312V-384H136H64V-312V-240H136H208ZM448 -312V-384H376H304V-312V-240H376H448ZM100 -351Q101 -352 136 -352H172L174 -349L176 -347V-312V-277L173 -275L171 -272H136Q101 -272 100 -273Q96 -275 96.0 -311.5Q96 -348 100 -351ZM338 -349 340 -352H375Q411 -352 412 -351Q416 -348 416.0 -311.5Q416 -275 412 -273Q411 -272 376 -272H341L339 -275L336 -277V-312V-347ZM55 -175Q58 -176 137 -176L216 -175L221 -173Q232 -168 237 -157L239 -152V-72V8L237 14Q231 24 222 29Q214 33 132 32H58L52 30Q40 24 34 12L32 6V-68Q31 -150 35 -158Q41 -170 55 -175ZM275 -174 277 -176H304H331L333 -174L336 -172V-144V-117L333 -115L331 -112H304H276L274 -115L272 -117V-144V-171ZM435 -174Q437 -176 456.0 -176.0Q475 -176 477 -174Q481 -171 480 -149V-133L477 -130L474 -128H457Q439 -128 437 -129Q432 -131 432 -153V-172ZM208 -72V-144H136H64V-72V0H136H208ZM100 -111Q101 -112 136 -112H171L173 -110L176 -107V-72Q176 -37 175 -36Q173 -32 136 -32Q104 -32 101 -33Q97 -34 96.5 -39.5Q96 -45 96 -72Q96 -109 100 -111ZM339 -110 341 -112H376Q411 -112 412 -111Q416 -109 416 -72Q416 -45 415.5 -39.5Q415 -34 411 -33Q408 -32 376 -32Q339 -32 337 -36Q336 -37 336 -72V-107ZM420 -31Q421 -32 448.0 -32.0Q475 -32 476 -31Q480 -28 480 0Q480 24 479 27Q478 31 473.0 31.5Q468 32 448.0 32.0Q428 32 423.0 31.5Q418 31 417 27Q416 24 416 0Q416 -28 420 -31ZM276 -15Q276 -15 276 -15Q279 -16 295 -16Q317 -16 319 -12Q320 -9 320 9Q320 9 320 26L318 29L315 32H299Q278 33 275.0 30.5Q272 28 272 9Q272 -10 273.0 -12.0Q274 -14 276 -15Z"/></svg></div>
       <div class="icon-title" data-t="feat3_title">QR Payments</div>
       <div class="icon-desc" data-t="feat3_desc">Fast, simple and secure</div>
     </div>
     <div class="icon-item">
-      <div class="icon-svg">
-        <svg viewBox="0 0 56 56" fill="none">
-          <defs><linearGradient id="ic4" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-          <circle cx="20" cy="18" r="9" stroke="url(#ic4)" stroke-width="3.5" fill="none"/>
-          <path d="M4 48v-2a10 10 0 0 1 10-10h12a10 10 0 0 1 10 10v2" stroke="url(#ic4)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-          <circle cx="40" cy="16" r="7" stroke="url(#ic4)" stroke-width="3" fill="none"/>
-          <path d="M48 44v-1.5a8 8 0 0 0-6-7.74" stroke="url(#ic4)" stroke-width="3" stroke-linecap="round" fill="none"/>
-        </svg>
-      </div>
+      <div class="icon-svg"><svg viewBox="6 -441 498 498"><path fill="#7B61FF" d="M320 -366Q338 -370 357 -365Q379 -360 394.5 -344.5Q410 -329 416 -307Q418 -299 418.0 -285.0Q418 -271 416 -263Q409 -234 389 -215Q378 -205 367 -200Q352 -192 336 -192Q306 -192 284 -215Q266 -232 259 -252Q246 -293 263.5 -326.0Q281 -359 320 -366ZM141 -336Q145 -336 145 -336Q153 -337 167 -333Q184 -328 196 -316Q216 -296 216 -266Q216 -232 192 -208Q163 -179 128 -191Q91 -204 80 -247Q75 -267 80 -284Q85 -306 102 -320Q118 -334 141 -336ZM349 -334Q324 -340 306.0 -327.0Q288 -314 286 -291Q285 -276 290 -263Q296 -244 311.0 -233.0Q326 -222 341 -224Q356 -227 368.0 -240.0Q380 -253 384 -271Q389 -289 383 -304Q374 -329 349 -334ZM157 -303Q147 -305 136 -302Q122 -299 115 -287Q109 -277 110.0 -263.0Q111 -249 118 -239Q131 -219 149 -220Q167 -221 178.0 -243.5Q189 -266 180 -284Q173 -298 157 -303ZM123 -168Q131 -169 151.0 -168.5Q171 -168 178 -167Q207 -161 216 -154Q218 -153 220 -149Q224 -141 219.5 -133.5Q215 -126 206 -126Q202 -126 196 -129Q157 -144 115 -133Q77 -124 59 -98Q50 -85 50 -81Q50 -80 104 -80Q149 -80 155.5 -79.5Q162 -79 166 -75Q173 -67 169 -58Q166 -51 158 -49Q155 -48 95 -48H35L30 -51Q21 -55 17 -66Q13 -79 25 -103Q32 -117 43 -128Q73 -161 123 -168ZM315 -159Q322 -160 343.0 -159.0Q364 -158 369 -157Q426 -148 461 -113Q482 -91 492 -63Q495 -53 495.0 -45.0Q495 -37 493 -32Q488 -22 478 -18Q474 -16 336.5 -16.0Q199 -16 195 -18Q185 -21 179 -32Q176 -38 176 -45Q177 -69 198 -98Q211 -115 228 -127Q266 -154 315 -159ZM363 -126Q363 -126 363 -126Q357 -127 342.0 -127.5Q327 -128 323 -128Q289 -124 267 -113Q237 -99 221 -75Q212 -61 210 -50Q210 -50 209 -48H336Q463 -48 463 -49Q463 -53 455 -68Q430 -115 363 -126Z"/></svg></div>
       <div class="icon-title" data-t="feat4_title">Groups</div>
       <div class="icon-desc" data-t="feat4_desc">Family, friends, colleagues</div>
     </div>
     <div class="icon-item">
-      <div class="icon-svg">
-        <svg viewBox="0 0 56 56" fill="none">
-          <defs><linearGradient id="ic5" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#B388FF"/></linearGradient></defs>
-          <path d="M28 6 C16 6 8 14 8 24 C8 34 16 40 28 42 C40 40 48 34 48 24 C48 14 40 6 28 6Z" stroke="url(#ic5)" stroke-width="3.5" fill="none"/>
-          <path d="M20 6 C16 10 14 16 14 24" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M36 6 C40 10 42 16 42 24" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M10 18 L46 18" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round"/>
-          <path d="M10 30 L46 30" stroke="url(#ic5)" stroke-width="3" stroke-linecap="round"/>
-          <!-- Bell shape override with actual bell -->
-          <path d="M28 8 C22 8 16 13 16 20 L16 32 L12 36 L44 36 L40 32 L40 20 C40 13 34 8 28 8Z" stroke="url(#ic5)" stroke-width="3.5" fill="none"/>
-          <line x1="28" y1="4" x2="28" y2="10" stroke="url(#ic5)" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M24 36 C24 38.2 25.8 40 28 40 C30.2 40 32 38.2 32 36" stroke="url(#ic5)" stroke-width="3" fill="none"/>
-        </svg>
-      </div>
+      <div class="icon-svg"><svg viewBox="24 -424 465 465"><path fill="#7B61FF" d="M242 -414Q247 -415 255.5 -415.0Q264 -415 270 -414Q290 -410 304 -390Q309 -383 315 -369Q316 -367 327 -362Q366 -342 384 -306Q399 -276 400 -223Q401 -188 405 -170Q410 -142 432 -116Q444 -102 446 -94Q451 -81 444.0 -68.0Q437 -55 423 -50Q419 -48 377 -48H336V-42Q332 -7 306 14Q273 40 233 29Q210 22 194.5 3.0Q179 -16 176 -42V-48H137Q99 -48 95 -49Q78 -52 69.5 -65.5Q61 -79 66 -95Q68 -102 82 -119Q101 -142 106 -164Q112 -189 112 -220Q112 -247 114 -263Q119 -287 128 -306Q146 -343 187 -363Q196 -367 197 -369Q203 -383 208 -390Q222 -409 242 -414ZM267 -381Q258 -385 250 -383Q243 -381 237 -375Q233 -370 225 -353Q221 -343 204 -335Q170 -319 157 -292Q149 -278 146 -256Q145 -250 144 -225Q143 -175 135 -150Q127 -124 107 -99Q95 -84 97 -81Q99 -80 256.0 -80.0Q413 -80 415 -81Q417 -84 405 -99Q385 -124 377 -150Q369 -175 368 -226Q367 -261 361 -278Q348 -316 308 -335Q291 -343 287 -353Q279 -370 275.0 -374.5Q271 -379 267 -381ZM303 -42Q303 -42 303 -42L304 -48H256H208V-42Q210 -28 220.0 -16.5Q230 -5 244 -2Q276 7 295 -20Q302 -30 303 -42Z"/></svg></div>
       <div class="icon-title" data-t="feat5_title">Notifications</div>
       <div class="icon-desc" data-t="feat5_desc">Reminders that matter</div>
     </div>
